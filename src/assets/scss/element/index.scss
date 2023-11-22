@@ -1,0 +1,116 @@
+$dark: #2a3a44;
+$black: #1d1f20;
+$white: #ffffff;
+$blue-dark: #345166;
+$blue-light: #d6e2ea;
+$blue-light-opacity: rgba(214, 226, 234, 0.5);
+$blue-middle: #3B4E5A;
+$gray-light: #f9fbfd;
+$gray-dark: #7D8588;
+$blue: #0079C4;
+$blue-hover: #31A1E7;
+$blue-hover-opacity: rgba(49, 161, 231, 0.3);
+$red: #FF4F00;
+$red-error: #FA3838;
+$orange: #f2711c;
+$green: #07DA8E;
+$box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.16);
+
+$--colors: (
+  "primary": (
+    "base": $dark,
+  ),
+  "success": (
+    "base": $blue,
+  ),
+  "warning": (
+    "base": $orange,
+  ),
+  "danger": (
+    "base": $red-error,
+  ),
+  "error": (
+    "base": $red-error,
+  ),
+);
+
+$--input: (
+  "focus-border": $dark,
+  "focus-border-color": $dark,
+);
+
+$--menu: (
+  "active-color": $white,
+  "base-level-padding": 12px,
+  "hover-bg-color": $blue-dark,
+);
+
+$--table: (
+  "header-bg-color": $blue-light,
+  "header-text-color": $blue-dark,
+);
+
+$--text-color: (
+  "regular": $black,
+);
+
+$--border-color: (
+  "": $blue-light,
+  "light": $blue-light,
+  "lighter": $blue-light,
+);
+
+$--box-shadow: (
+  "": $box-shadow,
+  "light": $box-shadow,
+  "lighter": $box-shadow,
+);
+
+$--timeline: (
+  "node-color": $blue,
+);
+
+$--button: (
+  "text-color": $blue,
+  "border-color": $blue,
+  "hover-text-color": $blue,
+  "hover-border-color": $blue,
+  "hover-bg-color": $blue-light,
+);
+
+$--dropdown: (
+  "menuItem-hover-fill": $blue-light,
+);
+
+$--dialog: (
+  "border-radius": 4px,
+);
+
+$--collapse: (
+  "header-height": 60px,
+);
+
+$--checkbox: (
+  "checked-bg-color": $blue,
+  "checked-input-border-color": $blue,
+);
+
+@forward "element-plus/theme-chalk/src/mixins/config" with (
+  $namespace: "np"
+);
+
+@forward "element-plus/theme-chalk/src/common/var" with (
+  $colors: $--colors,
+  $input: $--input,
+  $menu: $--menu,
+  $table: $--table,
+  $text-color: $--text-color,
+  $border-color: $--border-color,
+  $box-shadow: $--box-shadow,
+  $timeline: $--timeline,
+  $button: $--button,
+  $dropdown: $--dropdown,
+  $dialog: $--dialog,
+  $collapse: $--collapse,
+  $checkbox: $--checkbox,
+);
