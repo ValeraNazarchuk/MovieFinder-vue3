@@ -9,20 +9,20 @@ const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
-      path: "/login",
-      name: "login",
-      meta: { layout: "default", middleware: [anonymous] },
-      component: () => import("../views/LoginView.vue"),
-    },
-    {
       path: "/",
       name: "home",
-      meta: {
-        layout: "main",
-        role: ROLES.user,
-        middleware: [auth, role],
-      },
+      // meta: {
+      // layout: "main",
+      // role: ROLES.user,
+      // middleware: [auth, role],
+      // },
       component: () => import("../views/HomeView.vue"),
+    },
+    {
+      path: "/detailed",
+      name: "detailed",
+      // meta: { layout: "default", middleware: [anonymous] },
+      component: () => import("../views/DetailedView.vue"),
     },
   ],
 });

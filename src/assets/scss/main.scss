@@ -1,16 +1,12 @@
-@import "sanitize.css";
-@import "./fonts";
+@import "./_reset.scss";
+@import "./_fonts.scss";
 
 html,
 body {
-  font-family: "Nunito Sans", sans-serif;
+  font-family: "Times New Roman", Times, sans-serif;
   font-size: 16px;
   font-weight: 400;
   color: $black;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  background: $gray-light;
 }
 
 #app {
@@ -19,19 +15,7 @@ body {
   position: relative;
 }
 
-.layout {
-  flex: 1 1 0;
+.container {
+  max-width: 1160px;
+  padding: 0 20px;
 }
-
-/* Chrome, Safari, Edge, Opera */
-input::-webkit-outer-spin-button,
-input::-webkit-inner-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
-}
-
-/* Firefox */
-input[type="number"] {
-  -moz-appearance: textfield;
-}
-
