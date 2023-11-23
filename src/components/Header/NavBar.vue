@@ -1,12 +1,5 @@
 <template>
   <nav class="nav">
-    <!-- <div
-      class="nav__burger"
-      @click="toggleMenu"
-      :class="{ 'nav__burger--active': isOpen }"
-    >
-      <span class="nav__burger-line"></span>
-    </div> -->
     <ul class="nav__list">
       <li v-for="(item, index) in list" :key="index" class="nav__list-item">
         <RouterLink class="nav__item-link" :to="item.link">{{
@@ -35,8 +28,32 @@ export default defineComponent({
   &__list {
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 30px;
+    &-item {
+      position: relative;
+      letter-spacing: 0.3em;
+      transition: all 0.6s;
+      border-bottom: 1px solid transparent;
+      color: #cbcbcb;
+      position: relative;
+      &::before {
+        content: "";
+        position: absolute;
+        left: 0;
+        bottom: -5px;
+        width: 0;
+        height: 3px;
+        background-color: white;
+        transition: width 0.5s;
+      }
+      &:hover::before {
+        width: 100%;
+      }
+      &:hover {
+        text-shadow: 0 0 5px gray, 0 0 25px gray, 0 0 50px gray, 0 0 100px gray;
+        color: white;
+      }
+    }
   }
 }
-
 </style>
