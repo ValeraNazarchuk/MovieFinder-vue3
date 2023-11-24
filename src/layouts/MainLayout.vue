@@ -1,10 +1,17 @@
 <template>
-  <div class="container">
-    <div class="content">
-      <RouterView />
+  <main class="main">
+    <div class="container">
+        <!-- <RouterView /> -->
+        <slot/>
     </div>
-  </div>
+  </main>
 </template>
 
 <script></script>
-<style scoped></style>
+<style scoped>
+.main {
+  background-color: #484747;
+  padding: 20px 0;
+  /* height: 100%; */
+}
+</style>

@@ -27,18 +27,6 @@ export default defineComponent({
       <div class="header__inner">
         <a class="header__logo" href="#">MovieFinder</a>
         <Navbar :list="navList" />
-        <div class="header__search-box">
-          <el-input
-            v-model="searchValue"
-            class="header__search-input"
-            placeholder="Search"
-          >
-            <template #prefix>
-              <el-icon class="el-input__icon"><search /></el-icon>
-            </template>
-          </el-input>
-          <el-button type="primary" @click="searchClick">Search</el-button>
-        </div>
       </div>
     </div>
   </header>

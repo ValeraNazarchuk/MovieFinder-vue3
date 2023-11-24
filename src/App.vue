@@ -2,11 +2,11 @@
 import MainLayout from "@/layouts/MainLayout.vue";
 // import DefaultLayout from "@/layouts/DefaultLayout.vue";
 import Header from "@/components/Header/Header.vue";
-// import Header from "@/";
 
 export default {
   components: {
     MainLayout,
+    Header,
   },
 };
 </script>
