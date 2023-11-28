@@ -12,6 +12,6 @@
 .main {
   background-color: #484747;
   padding: 20px 0;
-  /* height: 100%; */
+  height: 100%;
 }
 </style>

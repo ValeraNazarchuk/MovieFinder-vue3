@@ -9,7 +9,7 @@ const routes = [
   {
     path: "/detailed-movies",
     name: "detailed-movies",
-    component: () => import("@/views/DetailedView.vue"),
+    component: () => import("@/views/DetailedMovieView.vue"),
   },
   {
     path: "/form",
@@ -17,9 +17,9 @@ const routes = [
     component: () => import("@/views/FormView.vue"),
   },
   {
-    path: "/movies",
+    path: "/result-movies",
     name: "movies",
-    component: () => import("@/views/MoviesView.vue"),
+    component: () => import("@/views/ResultMoviesView.vue"),
   },
 ];
 
