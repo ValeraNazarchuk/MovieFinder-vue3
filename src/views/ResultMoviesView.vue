@@ -1,7 +1,9 @@
 <template>
   <div class="movies">
-    <h2 class="movies__error" v-if="!movies && !loadingFullWindow">No movies found</h2>
-    <div v-else-if="loading"  class="loader-container">
+    <h2 class="movies__error" v-if="!movies && !loadingFullWindow">
+      No movies found
+    </h2>
+    <div v-else-if="loading" class="loader-container">
       <Loader />
     </div>
     <div v-else>
@@ -49,8 +51,8 @@ export default {
       }
     },
 
-    async loadMoreMovie(movie, page) {
-      this.reloading = true
+    async loadMoreMovies(movie, page) {
+      this.reloading = true;
       try {
         const response = await axios.get(
           `http://www.omdbapi.com/?s=${movie}&page=${page}&apikey=738daa61`
@@ -59,7 +61,7 @@ export default {
       } catch (error) {
         console.error("Error fetching movies:", error);
       } finally {
-        this.reloading = false
+        this.reloading = false;
       }
     },
     watchMovie(movie) {
@@ -79,7 +81,7 @@ export default {
     const callback = (entries, observer) => {
       if (entries[0].isIntersecting) {
         this.pageNumber++;
-        this.loadMoreMovie(searchStore.searchMovies, this.pageNumber);
+        this.loadMoreMovies(searchStore.searchMovies, this.pageNumber);
       }
     };
 

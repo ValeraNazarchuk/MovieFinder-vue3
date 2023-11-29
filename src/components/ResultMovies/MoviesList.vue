@@ -41,7 +41,7 @@ export default {
     &-item {
       display: flex;
       flex-direction: column;
-      max-width: 150px;
+      max-width: 200px;
       width: 100%;
       color: $white;
       border: 1px solid white;

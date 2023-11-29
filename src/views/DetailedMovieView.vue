@@ -1,5 +1,5 @@
 <template>
-  <div v-if="loading" class="loader-container">
+  <div v-if="loadingFullWindow" class="loader-container">
     <Loader />
   </div>
   <div v-else class="movie">
@@ -39,12 +39,12 @@ export default {
   data() {
     return {
       movie: {},
-      loading: false,
+      loadingFullWindow: false,
     };
   },
   methods: {
     async getMovies(movie) {
-      this.loading = true;
+      this.loadingFullWindow = true;
       try {
         const response = await axios.get(
           `http://www.omdbapi.com/?i=${movie}&apikey=738daa61`
@@ -53,7 +53,7 @@ export default {
       } catch (error) {
         console.error("Error fetching movies:", error);
       } finally {
-        this.loading = false;
+        this.loadingFullWindow = false;
       }
     },
   },

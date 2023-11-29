@@ -1,16 +1,43 @@
-<template></template>
+<template>
+  <el-input
+    class="field-input"
+    v-model="internalValue"
+    :placeholder="placeholder"
+  />
+</template>
 
 <script>
 import { defineComponent } from "vue";
 
 export default defineComponent({
   name: "FieldInput",
-  props: {},
+  props: {
+    value: {
+      type: [String, Number],
+      default: "",
+    },
+    placeholder: {
+      type: String,
+    },
+  },
+  computed: {
+    internalValue: {
+      get() {
+        return this.modelValue;
+      },
+      set(value) {
+        this.$emit("update:modelValue", value);
+      },
+    },
+  },
 });
 </script>
 
 <style lang="scss" scoped>
 .field-input {
-  
+  color: $white;
+  &::placeholder {
+    color: $white;
+  }
 }
 </style>

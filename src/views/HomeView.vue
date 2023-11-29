@@ -3,7 +3,7 @@
     <h1 class="home__title">Search movie:</h1>
     <div class="home__search-box">
       <el-input
-        v-model="searchMovie"
+        v-model="searchMovieValue"
         class="home__search-input"
         placeholder="Search"
       >
@@ -24,14 +24,14 @@ const searchStore = useSearchStore();
 export default {
   data() {
     return {
-      searchMovie: "",
+      searchMovieValue: "",
     };
   },
   methods: {
     searchClick() {
-      searchStore.searchMovies = this.searchMovie;
+      searchStore.searchMovies = this.searchMovieValue;
       this.$router.push("/result-movies");
-      this.searchMovie = "";
+      this.searchMovieValue = "";
     },
   },
 };
