@@ -1,7 +1,5 @@
 <template>
-  <div class="loader-container">
-    <span class="loader"></span>
-  </div>
+  <span class="loader"></span>
 </template>
 
 <script>
@@ -13,18 +11,6 @@ export default defineComponent({
 </script>
 
 <style lang="scss">
-.loader-container {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(255, 255, 255, 0.4);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 100;
-}
 .loader {
   width: 68px;
   height: 68px;

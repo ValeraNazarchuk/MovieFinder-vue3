@@ -1,9 +1,13 @@
 <template>
-  <Loader v-if="loading" />
+  <div v-if="loading" class="loader-container">
+    <Loader />
+  </div>
   <div v-else class="movie">
     <div class="movie__inner">
       <div class="movie__content">
-        <PrimaryButton @onClick="$router.push('/result-movies')">Back</PrimaryButton>
+        <PrimaryButton @onClick="$router.push('/result-movies')"
+          >Back</PrimaryButton
+        >
         <h3 class="movie__content-title">{{ movie.Title }}</h3>
         <p>
           IMDb: <strong>{{ movie.imdbRating }}</strong>
@@ -26,16 +30,12 @@
 </template>
 
 <script>
-import { useSearchStore } from "../stores/movies";
-import Loader from "../components/Loader/Loader.vue";
 import axios from "axios";
+import { useSearchStore } from "../stores/movies";
 
 const searchStore = useSearchStore();
 
 export default {
-  components: {
-    Loader,
-  },
   data() {
     return {
       movie: {},
@@ -82,15 +82,32 @@ export default {
       font-size: 30px;
       line-height: 38px;
     }
+
+    strong {
+      font-size: 16px;
+    }
   }
 
   &__images {
     max-width: 400px;
     img {
-      width: 100%;
+      margin-left: 20px;
       border-radius: 30px;
     }
   }
+}
+
+.loader-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.4);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 100;
 }
 .el-button--primary {
   width: 100px;

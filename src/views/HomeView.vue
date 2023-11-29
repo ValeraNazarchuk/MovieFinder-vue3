@@ -29,7 +29,6 @@ export default {
   },
   methods: {
     searchClick() {
-      // searchStore.getMovies(this.searchMovie);
       searchStore.searchMovies = this.searchMovie;
       this.$router.push("/result-movies");
       this.searchMovie = "";

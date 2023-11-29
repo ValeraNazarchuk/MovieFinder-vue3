@@ -1,7 +1,6 @@
 <template>
   <main class="main">
     <div class="container">
-        <!-- <RouterView /> -->
         <slot/>
     </div>
   </main>
@@ -12,6 +11,5 @@
 .main {
   background-color: #484747;
   padding: 20px 0;
-  height: 100%;
 }
 </style>

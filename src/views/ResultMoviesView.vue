@@ -1,17 +1,22 @@
 <template>
   <div class="movies">
-    <h2 class="movies__error" v-if="!movies && !loading">No movies found</h2>
-    <Loader v-else-if="loading" />
+    <h2 class="movies__error" v-if="!movies && !loadingFullWindow">No movies found</h2>
+    <div v-else-if="loading"  class="loader-container">
+      <Loader />
+    </div>
     <div v-else>
       <h2 class="movies__title">Movies</h2>
       <MoviesList :movies="movies" @onWatch="watchMovie" />
+      <div v-show="reloading" class="movies__loader">
+        <Loader />
+      </div>
     </div>
+    <div ref="observer"></div>
   </div>
 </template>
 
 <script>
 import { useSearchStore } from "../stores/movies";
-import Loader from "../components/Loader/Loader.vue";
 import axios from "axios";
 import MoviesList from "../components/ResultMovies/MoviesList.vue";
 
@@ -19,27 +24,42 @@ const searchStore = useSearchStore();
 
 export default {
   components: {
-    Loader,
     MoviesList,
   },
   data() {
     return {
       movies: [],
-      loading: false,
+      loadingFullWindow: false,
+      reloading: false,
+      pageNumber: 1,
     };
   },
   methods: {
-    async getMovies(movie) {
-      this.loading = true;
+    async getMovies(movie, page) {
+      this.loadingFullWindow = true;
       try {
         const response = await axios.get(
-          `http://www.omdbapi.com/?s=${movie}&apikey=738daa61`
+          `http://www.omdbapi.com/?s=${movie}&page=${page}&apikey=738daa61`
         );
         this.movies = response.data.Search;
       } catch (error) {
         console.error("Error fetching movies:", error);
       } finally {
-        this.loading = false;
+        this.loadingFullWindow = false;
+      }
+    },
+
+    async loadMoreMovie(movie, page) {
+      this.reloading = true
+      try {
+        const response = await axios.get(
+          `http://www.omdbapi.com/?s=${movie}&page=${page}&apikey=738daa61`
+        );
+        this.movies = [...this.movies, ...response.data.Search];
+      } catch (error) {
+        console.error("Error fetching movies:", error);
+      } finally {
+        this.reloading = false
       }
     },
     watchMovie(movie) {
@@ -49,14 +69,28 @@ export default {
     },
   },
   mounted() {
-    this.getMovies(searchStore.searchMovies);
+    this.getMovies(searchStore.searchMovies, this.pageNumber);
+
+    const options = {
+      rootMargin: "0px",
+      threshold: 1.0,
+    };
+
+    const callback = (entries, observer) => {
+      if (entries[0].isIntersecting) {
+        this.pageNumber++;
+        this.loadMoreMovie(searchStore.searchMovies, this.pageNumber);
+      }
+    };
+
+    const observer = new IntersectionObserver(callback, options);
+    observer.observe(this.$refs.observer);
   },
 };
 </script>
 
 <style lang="scss" scoped>
 .movies {
-  // height: 100%;
   &__error {
     color: $white;
     height: 100%;
@@ -73,5 +107,24 @@ export default {
     text-align: center;
     margin-bottom: 20px;
   }
+  &__loader {
+    margin: 15px 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+.loader-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.4);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 100;
 }
 </style>
