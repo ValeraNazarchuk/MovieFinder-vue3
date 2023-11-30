@@ -5,6 +5,9 @@ export const useSearchStore = defineStore("searchStore", {
   state: () => ({
     searchMovies: "",
     moviesId: "",
+
+
+    // Отримання данних в pinia
     // movies: [],
     // loading: false,
   }),

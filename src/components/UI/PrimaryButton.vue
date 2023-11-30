@@ -7,8 +7,6 @@ import { defineComponent } from "vue";
 
 export default defineComponent({
   name: "PrimaryButton",
-  props: {
-  },
   methods: {
     handleClick() {
       this.$emit("onClick");
@@ -18,6 +16,4 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-.primary-btn {
-}
 </style>

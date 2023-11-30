@@ -10,7 +10,7 @@
           {{ movie.Year }}
         </p>
       </div>
-      <PrimaryButton @onClick="watchMovie(movie)">Watch</PrimaryButton>
+      <PrimaryButton @onClick="watchMovieClick(movie)">Watch</PrimaryButton>
     </li>
   </ul>
 </template>
@@ -25,7 +25,7 @@ export default {
     },
   },
   methods: {
-    watchMovie(movieId) {
+    watchMovieClick(movieId) {
       this.$emit("onWatch", movieId);
     },
   },

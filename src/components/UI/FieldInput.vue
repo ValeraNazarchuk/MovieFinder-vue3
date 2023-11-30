@@ -12,10 +12,6 @@ import { defineComponent } from "vue";
 export default defineComponent({
   name: "FieldInput",
   props: {
-    value: {
-      type: [String, Number],
-      default: "",
-    },
     placeholder: {
       type: String,
       default: "Enter text...",
