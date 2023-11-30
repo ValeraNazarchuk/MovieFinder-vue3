@@ -22,11 +22,6 @@
 import { defineComponent } from "vue";
 
 export default defineComponent({
-  data() {
-    return {
-      imgFile: null,
-    };
-  },
   methods: {
     handleChange(file) {
       const url = URL.createObjectURL(file.raw);

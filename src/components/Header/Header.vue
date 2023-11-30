@@ -26,9 +26,6 @@ export default defineComponent({
       ],
     };
   },
-  methods: {
-    searchClick() {},
-  },
 });
 </script>
 
