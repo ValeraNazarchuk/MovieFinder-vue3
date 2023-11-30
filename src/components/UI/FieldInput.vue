@@ -18,6 +18,7 @@ export default defineComponent({
     },
     placeholder: {
       type: String,
+      default: "Enter text...",
     },
   },
   computed: {
