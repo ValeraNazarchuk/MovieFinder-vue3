@@ -1,26 +1,7 @@
-<template>
-  <div class="movies">
-    <h2 class="movies__error" v-if="!movies && !loadingFullWindow">
-      No movies found
-    </h2>
-    <div v-else-if="loading" class="loader-container">
-      <Loader />
-    </div>
-    <div v-else>
-      <h2 class="movies__title">Movies</h2>
-      <MoviesList :movies="movies" @onWatch="watchMovie" />
-      <div v-show="reloading" class="movies__loader">
-        <Loader />
-      </div>
-    </div>
-    <div ref="observer"></div>
-  </div>
-</template>
-
 <script>
-import { useSearchStore } from "../stores/movies";
+import { useSearchStore } from "@/stores/movies";
 import axios from "axios";
-import MoviesList from "../components/ResultMovies/MoviesList.vue";
+import MoviesList from "@/components/ResultMovies/MoviesList.vue";
 
 const searchStore = useSearchStore();
 
@@ -90,6 +71,25 @@ export default {
   },
 };
 </script>
+
+<template>
+  <div class="movies">
+    <h2 class="movies__error" v-if="!movies && !loadingFullWindow">
+      No movies found
+    </h2>
+    <div v-else-if="loading" class="loader-container">
+      <Loader />
+    </div>
+    <div v-else>
+      <h2 class="movies__title">Movies</h2>
+      <MoviesList :movies="movies" @onWatch="watchMovie" />
+      <div v-show="reloading" class="movies__loader">
+        <Loader />
+      </div>
+    </div>
+    <div ref="observer"></div>
+  </div>
+</template>
 
 <style lang="scss" scoped>
 .movies {

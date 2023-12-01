@@ -1,7 +1,3 @@
-<template>
-  <span class="loader"></span>
-</template>
-
 <script>
 import { defineComponent } from "vue";
 
@@ -9,6 +5,10 @@ export default defineComponent({
   name: "Loader",
 });
 </script>
+
+<template>
+  <span class="loader"></span>
+</template>
 
 <style lang="scss">
 .loader {

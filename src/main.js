@@ -15,7 +15,7 @@ for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
   app.component(key, component);
 }
 
-// Для UI компонентів
+// for UI commponents
 components.forEach((component) => {
   app.component(component.name, component);
 });

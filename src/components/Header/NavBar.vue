@@ -1,15 +1,3 @@
-<template>
-  <nav class="nav">
-    <ul class="nav__list">
-      <li v-for="(item, index) in list" :key="index" class="nav__list-item">
-        <RouterLink class="nav__item-link" :to="item.link">{{
-          item.text
-        }}</RouterLink>
-      </li>
-    </ul>
-  </nav>
-</template>
-
 <script>
 import { defineComponent } from "vue";
 
@@ -22,6 +10,18 @@ export default defineComponent({
   },
 });
 </script>
+
+<template>
+  <nav class="nav">
+    <ul class="nav__list">
+      <li v-for="(item, index) in list" :key="index" class="nav__list-item">
+        <RouterLink class="nav__item-link" :to="item.link">{{
+          item.text
+        }}</RouterLink>
+      </li>
+    </ul>
+  </nav>
+</template>
 
 <style lang="scss" scoped>
 .nav {

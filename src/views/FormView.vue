@@ -1,18 +1,3 @@
-<template>
-  <form class="form" @submit.prevent>
-    <div class="form__inner">
-      <h3 class="form__title">Sent movie</h3>
-      <div class="form__box">
-        <FieldInput v-model="data.title" :placeholder="'Enter Title'" />
-        <FieldInput v-model="data.director" :placeholder="'Enter Director'" />
-        <FieldInput v-model="data.year" :placeholder="'Enter Year'" />
-        <Upload @image-uploaded="handleImageUploaded" />
-        <PrimaryButton @click="sendForm"> Send </PrimaryButton>
-      </div>
-    </div>
-  </form>
-</template>
-
 <script>
 import Upload from "@/components/Form/Upload.vue";
 export default {
@@ -50,6 +35,21 @@ export default {
   },
 };
 </script>
+
+<template>
+  <form class="form" @submit.prevent>
+    <div class="form__inner">
+      <h3 class="form__title">Sent movie</h3>
+      <div class="form__box">
+        <FieldInput v-model="data.title" :placeholder="'Enter Title'" />
+        <FieldInput v-model="data.director" :placeholder="'Enter Director'" />
+        <FieldInput v-model="data.year" :placeholder="'Enter Year'" />
+        <Upload @image-uploaded="handleImageUploaded" />
+        <PrimaryButton @click="sendForm"> Send </PrimaryButton>
+      </div>
+    </div>
+  </form>
+</template>
 
 <style lang="scss">
 .form {

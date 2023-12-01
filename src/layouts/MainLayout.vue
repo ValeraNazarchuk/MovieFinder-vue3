@@ -1,3 +1,5 @@
+<script></script>
+
 <template>
   <main class="main">
     <div class="container">
@@ -6,7 +8,6 @@
   </main>
 </template>
 
-<script></script>
 <style scoped>
 .main {
   background-color: #484747;

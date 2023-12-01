@@ -1,23 +1,5 @@
-<template>
-  <div class="home">
-    <h1 class="home__title">Search movie:</h1>
-    <div class="home__search-box">
-      <el-input
-        v-model="searchMovieValue"
-        class="home__search-input"
-        placeholder="Search"
-      >
-        <template #prefix>
-          <el-icon class="el-input__icon"><search /></el-icon>
-        </template>
-      </el-input>
-      <PrimaryButton @onClick="searchClick"> Search </PrimaryButton>
-    </div>
-  </div>
-</template>
-
 <script>
-import { useSearchStore } from "../stores/movies.js";
+import { useSearchStore } from "@/stores/movies.js";
 
 const searchStore = useSearchStore();
 
@@ -36,6 +18,24 @@ export default {
   },
 };
 </script>
+
+<template>
+  <div class="home">
+    <h1 class="home__title">Search movie:</h1>
+    <div class="home__search-box">
+      <el-input
+        v-model="searchMovieValue"
+        class="home__search-input"
+        placeholder="Search"
+      >
+        <template #prefix>
+          <el-icon class="el-input__icon"><search /></el-icon>
+        </template>
+      </el-input>
+      <PrimaryButton @onClick="searchClick"> Search </PrimaryButton>
+    </div>
+  </div>
+</template>
 
 <style lang="scss">
 .home {

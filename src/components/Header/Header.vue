@@ -1,14 +1,3 @@
-<template>
-  <header class="header">
-    <div class="container">
-      <div class="header__inner">
-        <a class="header__logo" href="#">MovieFinder</a>
-        <Navbar :list="navList" />
-      </div>
-    </div>
-  </header>
-</template>
-
 <script>
 import { defineComponent } from "vue";
 import Navbar from "./NavBar.vue";
@@ -28,6 +17,17 @@ export default defineComponent({
   },
 });
 </script>
+
+<template>
+  <header class="header">
+    <div class="container">
+      <div class="header__inner">
+        <a class="header__logo" href="#">MovieFinder</a>
+        <Navbar :list="navList" />
+      </div>
+    </div>
+  </header>
+</template>
 
 <style lang="scss" scoped>
 .header {

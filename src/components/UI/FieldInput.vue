@@ -1,11 +1,3 @@
-<template>
-  <el-input
-    class="field-input"
-    v-model="internalValue"
-    :placeholder="placeholder"
-  />
-</template>
-
 <script>
 import { defineComponent } from "vue";
 
@@ -29,6 +21,14 @@ export default defineComponent({
   },
 });
 </script>
+
+<template>
+  <el-input
+    class="field-input"
+    v-model="internalValue"
+    :placeholder="placeholder"
+  />
+</template>
 
 <style lang="scss" scoped>
 .field-input {

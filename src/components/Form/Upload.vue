@@ -1,3 +1,17 @@
+<script>
+import { defineComponent } from "vue";
+
+export default defineComponent({
+  methods: {
+    handleChange(file) {
+      const url = URL.createObjectURL(file.raw);
+
+      this.$emit("image-uploaded", url);
+    },
+  },
+});
+</script>
+
 <template>
   <el-upload
     class="upload-demo"
@@ -15,21 +29,13 @@
         JPG/PNG files with a size less than 500kb
       </div>
     </template>
+
+    <template>
+      <div>
+        
+      </div>
+    </template>
   </el-upload>
 </template>
-
-<script>
-import { defineComponent } from "vue";
-
-export default defineComponent({
-  methods: {
-    handleChange(file) {
-      const url = URL.createObjectURL(file.raw);
-
-      this.$emit("image-uploaded", url);
-    },
-  },
-});
-</script>
 
 <style lang="scss"></style>

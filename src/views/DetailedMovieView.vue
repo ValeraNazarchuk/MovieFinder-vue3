@@ -1,37 +1,6 @@
-<template>
-  <div v-if="loadingFullWindow" class="loader-container">
-    <Loader />
-  </div>
-  <div v-else class="movie">
-    <div class="movie__inner">
-      <div class="movie__content">
-        <PrimaryButton @onClick="$router.push('/result-movies')"
-          >Back</PrimaryButton
-        >
-        <h3 class="movie__content-title">{{ movie.Title }}</h3>
-        <p>
-          IMDb: <strong>{{ movie.imdbRating }}</strong>
-        </p>
-        <p>
-          Year: <strong>{{ movie.Year }}</strong>
-        </p>
-        <p>
-          Plot: <strong> {{ movie.Plot }} </strong>
-        </p>
-        <p>
-          Writer: <strong> {{ movie.Writer }} </strong>
-        </p>
-      </div>
-      <div class="movie__images">
-        <img :src="movie.Poster" alt="poster" />
-      </div>
-    </div>
-  </div>
-</template>
-
 <script>
 import axios from "axios";
-import { useSearchStore } from "../stores/movies";
+import { useSearchStore } from "@/stores/movies";
 
 const searchStore = useSearchStore();
 
@@ -62,6 +31,37 @@ export default {
   },
 };
 </script>
+
+<template>
+  <div v-if="loadingFullWindow" class="loader-container">
+    <Loader />
+  </div>
+  <div v-else class="movie">
+    <div class="movie__inner">
+      <div class="movie__content">
+        <PrimaryButton @onClick="$router.push('/result-movies')"
+          >Back</PrimaryButton
+        >
+        <h3 class="movie__content-title">{{ movie.Title }}</h3>
+        <p>
+          IMDb: <strong>{{ movie.imdbRating }}</strong>
+        </p>
+        <p>
+          Year: <strong>{{ movie.Year }}</strong>
+        </p>
+        <p>
+          Plot: <strong> {{ movie.Plot }} </strong>
+        </p>
+        <p>
+          Writer: <strong> {{ movie.Writer }} </strong>
+        </p>
+      </div>
+      <div class="movie__images">
+        <img :src="movie.Poster" alt="poster" />
+      </div>
+    </div>
+  </div>
+</template>
 
 <style lang="scss" scoped>
 .movie {

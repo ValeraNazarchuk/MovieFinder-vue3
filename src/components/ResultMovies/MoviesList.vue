@@ -1,20 +1,3 @@
-<template>
-  <ul class="movies__list">
-    <li v-for="movie in movies" :key="movie.imdbID" class="movies__list-item">
-      <img class="movies__list-poster" :src="movie.Poster" alt="Poster" />
-      <div class="movies__list-content">
-        <h4 class="movies__list-title">
-          {{ movie.Title }}
-        </h4>
-        <p class="movies__list-text">
-          {{ movie.Year }}
-        </p>
-      </div>
-      <PrimaryButton @onClick="watchMovieClick(movie)">Watch</PrimaryButton>
-    </li>
-  </ul>
-</template>
-
 <script>
 export default {
   name: "MoviesList",
@@ -31,6 +14,23 @@ export default {
   },
 };
 </script>
+
+<template>
+  <ul class="movies__list">
+    <li v-for="movie in movies" :key="movie.imdbID" class="movies__list-item">
+      <img class="movies__list-poster" :src="movie.Poster" alt="Poster" />
+      <div class="movies__list-content">
+        <h4 class="movies__list-title">
+          {{ movie.Title }}
+        </h4>
+        <p class="movies__list-text">
+          {{ movie.Year }}
+        </p>
+      </div>
+      <PrimaryButton @onClick="watchMovieClick(movie)">Watch</PrimaryButton>
+    </li>
+  </ul>
+</template>
 
 <style lang="scss" scoped>
 .movies {
