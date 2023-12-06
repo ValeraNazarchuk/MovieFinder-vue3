@@ -1,14 +1,12 @@
-<script>
-import { defineComponent } from "vue";
+<script setup>
+import { defineProps } from 'vue'
 
-export default defineComponent({
-  name: "Navbar",
-  props: {
-    list: {
-      required: true,
-    },
+const { list } = defineProps({
+  list: {
+    required: true
   },
 });
+
 </script>
 
 <template>

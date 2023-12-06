@@ -1,15 +1,13 @@
-<script>
-import { defineComponent } from "vue";
+<script setup>
+import { defineComponent, defineEmits } from "vue";
 
-export default defineComponent({
-  methods: {
-    handleChange(file) {
-      const url = URL.createObjectURL(file.raw);
+const emits = defineEmits(["update:modelValue"]);
 
-      this.$emit("image-uploaded", url);
-    },
-  },
-});
+const handleChange = (file) => {
+  const url = URL.createObjectURL(file.raw);
+
+  emits("image-uploaded", url);
+};
 </script>
 
 <template>
@@ -31,11 +29,9 @@ export default defineComponent({
     </template>
 
     <template>
-      <div>
-        
-      </div>
+      <div></div>
     </template>
   </el-upload>
 </template>
 
-<style lang="scss"></style>
+<style lang="scss" scoped></style>

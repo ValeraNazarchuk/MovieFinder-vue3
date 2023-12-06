@@ -1,35 +1,31 @@
-<script>
+<script setup>
+import { ref, onMounted, inject } from "vue";
 import axios from "axios";
 import { useSearchStore } from "@/stores/movies";
 
+const router = inject('router');
 const searchStore = useSearchStore();
+const movie = ref({});
+const loadingFullWindow = ref(false);
 
-export default {
-  data() {
-    return {
-      movie: {},
-      loadingFullWindow: false,
-    };
-  },
-  methods: {
-    async getMovies(movie) {
-      this.loadingFullWindow = true;
-      try {
-        const response = await axios.get(
-          `http://www.omdbapi.com/?i=${movie}&apikey=738daa61`
-        );
-        this.movie = response.data;
-      } catch (error) {
-        console.error("Error fetching movies:", error);
-      } finally {
-        this.loadingFullWindow = false;
-      }
-    },
-  },
-  mounted() {
-    this.getMovies(searchStore.moviesId);
-  },
+
+const getMovies = async (movieId) => {
+  loadingFullWindow.value = true;
+  try {
+    const response = await axios.get(
+      `http://www.omdbapi.com/?i=${movieId}&apikey=738daa61`
+    );
+    movie.value = response.data;
+  } catch (error) {
+    console.error("Error fetching movies:", error);
+  } finally {
+    loadingFullWindow.value = false;
+  }
 };
+
+onMounted(() => {
+  getMovies(searchStore.moviesId);
+});
 </script>
 
 <template>
@@ -39,7 +35,7 @@ export default {
   <div v-else class="movie">
     <div class="movie__inner">
       <div class="movie__content">
-        <PrimaryButton @onClick="$router.push('/result-movies')"
+        <PrimaryButton @onClick="router.push('/result-movies')"
           >Back</PrimaryButton
         >
         <h3 class="movie__content-title">{{ movie.Title }}</h3>

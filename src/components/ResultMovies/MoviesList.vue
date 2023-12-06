@@ -1,17 +1,17 @@
-<script>
-export default {
-  name: "MoviesList",
-  props: {
-    movies: {
-      type: Array,
-      required: true,
-    },
+<script setup>
+import { defineProps } from "vue";
+
+const emits = defineEmits(["onWatch"]);
+
+const { list } = defineProps({
+  movies: {
+    type: Array,
+    required: true,
   },
-  methods: {
-    watchMovieClick(movieId) {
-      this.$emit("onWatch", movieId);
-    },
-  },
+});
+
+const watchMovieClick = (movieId) => {
+  emits("onWatch", movieId);
 };
 </script>
 

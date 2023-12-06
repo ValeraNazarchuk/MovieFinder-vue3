@@ -1,21 +1,11 @@
-<script>
-import { defineComponent } from "vue";
+<script setup>
 import Navbar from "./NavBar.vue";
 
-export default defineComponent({
-  components: {
-    Navbar,
-  },
-  data() {
-    return {
-      searchValue: "",
-      navList: [
-        { text: "Home", link: "/" },
-        { text: "Form", link: "/form" },
-      ],
-    };
-  },
-});
+const navList = [
+  { text: "Home", link: "/" },
+  { text: "Form", link: "/form" },
+]
+
 </script>
 
 <template>

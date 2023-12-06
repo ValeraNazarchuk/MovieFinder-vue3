@@ -1,38 +1,31 @@
-<script>
+<script setup>
+import { ref } from "vue";
 import Upload from "@/components/Form/Upload.vue";
-export default {
-  components: {
-    Upload,
-  },
-  data() {
-    return {
-      data: {
-        title: "",
-        poster: null,
-        director: "",
-        year: "",
-      },
-    };
-  },
-  methods: {
-    sendForm() {
-      console.log(`
-          Title: ${this.data.title}
-          Poster: ${this.data.poster}
-          Director: ${this.data.director}
-          Year: ${this.data.year}
-        `);
-      this.data = {
-        title: "",
-        poster: null,
-        director: "",
-        year: "",
-      };
-    },
-    handleImageUploaded(url) {
-      this.data.poster = url;
-    },
-  },
+
+const data = ref({
+  title: "",
+  poster: null,
+  director: "",
+  year: "",
+});
+
+const sendForm = () => {
+  console.log(`
+    Title: ${data.value.title}
+    Poster: ${data.value.poster}
+    Director: ${data.value.director}
+    Year: ${data.value.year}
+  `);
+
+  data.value = {
+    title: "",
+    poster: null,
+    director: "",
+    year: "",
+  };
+};
+const handleImageUploaded = (url) => {
+  data.value.poster = url;
 };
 </script>
 
@@ -51,7 +44,7 @@ export default {
   </form>
 </template>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .form {
   &__inner {
   }

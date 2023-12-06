@@ -1,21 +1,16 @@
-<script>
+<script setup>
+import { ref } from "vue";
+import { useRouter } from "vue-router";
 import { useSearchStore } from "@/stores/movies.js";
 
 const searchStore = useSearchStore();
+const router = useRouter();
 
-export default {
-  data() {
-    return {
-      searchMovieValue: "",
-    };
-  },
-  methods: {
-    searchClick() {
-      searchStore.searchMovies = this.searchMovieValue;
-      this.$router.push("/result-movies");
-      this.searchMovieValue = "";
-    },
-  },
+const searchMovieValue = ref("");
+
+const searchClick = () => {
+  searchStore.searchMovies = searchMovieValue.value;
+  router.push("/result-movies");
 };
 </script>
 
@@ -23,21 +18,13 @@ export default {
   <div class="home">
     <h1 class="home__title">Search movie:</h1>
     <div class="home__search-box">
-      <el-input
-        v-model="searchMovieValue"
-        class="home__search-input"
-        placeholder="Search"
-      >
-        <template #prefix>
-          <el-icon class="el-input__icon"><search /></el-icon>
-        </template>
-      </el-input>
+      <FieldInput v-model="searchMovieValue" :placeholder="'Search'" />
       <PrimaryButton @onClick="searchClick"> Search </PrimaryButton>
     </div>
   </div>
 </template>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .home {
   &__title {
     color: $white;

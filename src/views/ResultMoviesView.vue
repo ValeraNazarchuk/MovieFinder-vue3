@@ -1,75 +1,70 @@
-<script>
+<script setup>
+import { onMounted, ref, inject } from "vue";
+import { useRouter } from 'vue-router';
 import { useSearchStore } from "@/stores/movies";
 import axios from "axios";
 import MoviesList from "@/components/ResultMovies/MoviesList.vue";
 
+const router = inject('router');
 const searchStore = useSearchStore();
+const movies = ref([]);
+const loadingFullWindow = ref(false);
+const reloading = ref(false);
+const pageNumber = ref(1);
 
-export default {
-  components: {
-    MoviesList,
-  },
-  data() {
-    return {
-      movies: [],
-      loadingFullWindow: false,
-      reloading: false,
-      pageNumber: 1,
-    };
-  },
-  methods: {
-    async getMovies(movie, page) {
-      this.loadingFullWindow = true;
-      try {
-        const response = await axios.get(
-          `http://www.omdbapi.com/?s=${movie}&page=${page}&apikey=738daa61`
-        );
-        this.movies = response.data.Search;
-      } catch (error) {
-        console.error("Error fetching movies:", error);
-      } finally {
-        this.loadingFullWindow = false;
-      }
-    },
-
-    async loadMoreMovies(movie, page) {
-      this.reloading = true;
-      try {
-        const response = await axios.get(
-          `http://www.omdbapi.com/?s=${movie}&page=${page}&apikey=738daa61`
-        );
-        this.movies = [...this.movies, ...response.data.Search];
-      } catch (error) {
-        console.error("Error fetching movies:", error);
-      } finally {
-        this.reloading = false;
-      }
-    },
-    watchMovie(movie) {
-      searchStore.moviesId = movie.imdbID;
-
-      this.$router.push("/detailed-movies");
-    },
-  },
-  mounted() {
-    this.getMovies(searchStore.searchMovies, this.pageNumber);
-
-    const options = {
-      rootMargin: "0px",
-      threshold: 1.0,
-    };
-
-    const callback = (entries, observer) => {
-      if (entries[0].isIntersecting) {
-        this.pageNumber++;
-        this.loadMoreMovies(searchStore.searchMovies, this.pageNumber);
-      }
-    };
-
-    const observer = new IntersectionObserver(callback, options);
-    observer.observe(this.$refs.observer);
-  },
+const watchMovie = (movie) => {
+  searchStore.moviesId = movie.imdbID;
+  router.push("/detailed-movies");
 };
+
+const getMovies = async (movie, page) => {
+  loadingFullWindow.value = true;
+  try {
+    const response = await axios.get(
+      `http://www.omdbapi.com/?s=${movie}&page=${page}&apikey=738daa61`
+    );
+    movies.value = response.data.Search;
+  } catch (error) {
+    console.error("Error fetching movies:", error);
+  } finally {
+    loadingFullWindow.value = false;
+  }
+};
+
+const loadMoreMovies = async (movie, page) => {
+  reloading.value = true;
+  try {
+    const response = await axios.get(
+      `http://www.omdbapi.com/?s=${movie}&page=${page}&apikey=738daa61`
+    );
+    movies.value = [...movies.value, ...response.data.Search];
+  } catch (error) {
+    console.error("Error fetching movies:", error);
+  } finally {
+    reloading.value = false;
+  }
+};
+
+onMounted(() => {
+  getMovies(searchStore.searchMovies, pageNumber.value);
+
+  const options = {
+    rootMargin: "0px",
+    threshold: 1.0,
+  };
+
+  const callback = (entries, observer) => {
+    if (entries[0].isIntersecting) {
+      pageNumber.value+=1;
+      loadMoreMovies(searchStore.searchMovies, pageNumber.value);
+    }
+  };
+
+  const observerElement = document.getElementById('observerElement');
+
+  const observer = new IntersectionObserver(callback, options);
+  observer.observe(observerElement);
+});
 </script>
 
 <template>
@@ -77,7 +72,7 @@ export default {
     <h2 class="movies__error" v-if="!movies && !loadingFullWindow">
       No movies found
     </h2>
-    <div v-else-if="loading" class="loader-container">
+    <div v-else-if="loadingFullWindow" class="loader-container">
       <Loader />
     </div>
     <div v-else>
@@ -87,7 +82,7 @@ export default {
         <Loader />
       </div>
     </div>
-    <div ref="observer"></div>
+    <div id="observerElement"></div>
   </div>
 </template>
 

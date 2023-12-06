@@ -1,5 +1,6 @@
 import App from "./App.vue";
 import router from "./router";
+// import routes from "./router";
 
 import { createApp } from "vue";
 import { createPinia } from "pinia";
@@ -16,11 +17,11 @@ for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
 }
 
 // for UI commponents
-components.forEach((component) => {
-  app.component(component.name, component);
-});
+app.use(components);
 
 app.use(createPinia());
+
+app.provide("router", router);
 app.use(router);
 
 app.mount("#app");

@@ -1,19 +1,13 @@
-<script>
-import { defineComponent } from "vue";
+<script setup>
+const emits = defineEmits(["onClick"]);
 
-export default defineComponent({
-  name: "PrimaryButton",
-  methods: {
-    handleClick() {
-      this.$emit("onClick");
-    },
-  },
-});
+const handleClick = () => {
+  emits("onClick");
+};
 </script>
 
 <template>
   <el-button type="primary" @click="handleClick"><slot /></el-button>
 </template>
 
-<style lang="scss" scoped>
-</style>
+<style lang="scss" scoped></style>

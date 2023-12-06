@@ -1,23 +1,13 @@
-<script>
-import { defineComponent } from "vue";
+<script setup>
+import { defineProps, defineEmits } from "vue";
 
-export default defineComponent({
-  name: "FieldInput",
-  props: {
-    placeholder: {
-      type: String,
-      default: "Enter text...",
-    },
-  },
-  computed: {
-    internalValue: {
-      get() {
-        return this.modelValue;
-      },
-      set(value) {
-        this.$emit("update:modelValue", value);
-      },
-    },
+const emits = defineEmits(["update:modelValue"]);
+
+const { modelValue } = defineProps({
+  modelValue: String,
+  placeholder: {
+    type: String,
+    default: "Enter text...",
   },
 });
 </script>
@@ -25,7 +15,8 @@ export default defineComponent({
 <template>
   <el-input
     class="field-input"
-    v-model="internalValue"
+    :model-value="modelValue"
+    @input="emits('update:modelValue', $event)"
     :placeholder="placeholder"
   />
 </template>
