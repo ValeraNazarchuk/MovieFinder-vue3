@@ -7,9 +7,10 @@ const routes = [
     component: () => import("@/views/HomeView.vue"),
   },
   {
-    path: "/detailed-movies",
+    path: "/detailed-movies/:id",
     name: "detailed-movies",
     component: () => import("@/views/DetailedMovieView.vue"),
+    props: true,
   },
   {
     path: "/form",
@@ -18,8 +19,9 @@ const routes = [
   },
   {
     path: "/result-movies",
-    name: "movies",
+    name: "result-movies",
     component: () => import("@/views/ResultMoviesView.vue"),
+    // props: true,
   },
 ];
 

@@ -1,11 +1,12 @@
 <script setup>
-import { onMounted, ref, inject } from "vue";
-import { useRouter } from 'vue-router';
+import { onMounted, ref } from "vue";
+import { useRouter, useRoute } from "vue-router";
 import { useSearchStore } from "@/stores/movies";
 import axios from "axios";
-import MoviesList from "@/components/ResultMovies/MoviesList.vue";
+import CarouselMovies from "@/components/ResultMovies/CarouselMovies.vue";
 
-const router = inject('router');
+const router = useRouter();
+const route = useRoute();
 const searchStore = useSearchStore();
 const movies = ref([]);
 const loadingFullWindow = ref(false);
@@ -13,15 +14,42 @@ const reloading = ref(false);
 const pageNumber = ref(1);
 
 const watchMovie = (movie) => {
-  searchStore.moviesId = movie.imdbID;
-  router.push("/detailed-movies");
+  router.push(`/detailed-movies/${movie.imdbID}`);
+  // router.push({
+  //   name: 'detailed-movies',
+  //   params: {
+  //     id: movie.imdbID
+  //   }
+  // });
 };
 
-const getMovies = async (movie, page) => {
+let setTimer;
+
+const startTimer = () => {
+  setTimer = setTimeout(() => {
+    getMovies(pageNumber);
+  }, 3000);
+};
+
+const handleIndexUpdate = (index) => {
+  if (index > 8) {
+    pageNumber.value++;
+    clearTimeout(setTimer);
+    startTimer();
+  } else if (pageNumber.value > 1 && index === 0) {
+    pageNumber.value--;
+    clearTimeout(setTimer);
+    startTimer();
+  } else {
+    clearTimeout(setTimer);
+  }
+};
+
+const getMovies = async (page) => {
   loadingFullWindow.value = true;
   try {
     const response = await axios.get(
-      `http://www.omdbapi.com/?s=${movie}&page=${page}&apikey=738daa61`
+      `http://www.omdbapi.com/?s=${route.query.search}&page=${page.value}&apikey=738daa61`
     );
     movies.value = response.data.Search;
   } catch (error) {
@@ -31,39 +59,43 @@ const getMovies = async (movie, page) => {
   }
 };
 
-const loadMoreMovies = async (movie, page) => {
-  reloading.value = true;
-  try {
-    const response = await axios.get(
-      `http://www.omdbapi.com/?s=${movie}&page=${page}&apikey=738daa61`
-    );
-    movies.value = [...movies.value, ...response.data.Search];
-  } catch (error) {
-    console.error("Error fetching movies:", error);
-  } finally {
-    reloading.value = false;
-  }
-};
+// const loadMoreMovies = async (movie, page) => {
+//   reloading.value = true;
+//   try {
+//     const response = await axios.get(
+//       // `http://www.omdbapi.com/?s=${route.params.search}&page=${page}&apikey=738daa61`
+//       `http://www.omdbapi.com/?s=${route.query}&page=${page}&apikey=738daa61`
+//     );
+//     movies.value = [...movies.value, ...response.data.Search];
+//   } catch (error) {
+//     console.error("Error fetching movies:", error);
+//   } finally {
+//     reloading.value = false;
+//   }
+// };
 
 onMounted(() => {
-  getMovies(searchStore.searchMovies, pageNumber.value);
+  getMovies(pageNumber.value);
+  // getMovies(searchStore.searchMovies, pageNumber.value);
+  // console.log(route.query);
 
-  const options = {
-    rootMargin: "0px",
-    threshold: 1.0,
-  };
+  //_____________
+  // const options = {
+  //   rootMargin: "0px",
+  //   threshold: 1.0,
+  // };
 
-  const callback = (entries, observer) => {
-    if (entries[0].isIntersecting) {
-      pageNumber.value+=1;
-      loadMoreMovies(searchStore.searchMovies, pageNumber.value);
-    }
-  };
+  // const callback = (entries, observer) => {
+  //   if (entries[0].isIntersecting) {
+  //     pageNumber.value+=1;
+  //     loadMoreMovies(searchStore.searchMovies, pageNumber.value);
+  //   }
+  // };
 
-  const observerElement = document.getElementById('observerElement');
+  // const observerElement = document.getElementById('observerElement');
 
-  const observer = new IntersectionObserver(callback, options);
-  observer.observe(observerElement);
+  // const observer = new IntersectionObserver(callback, options);
+  // observer.observe(observerElement);
 });
 </script>
 
@@ -77,12 +109,31 @@ onMounted(() => {
     </div>
     <div v-else>
       <h2 class="movies__title">Movies</h2>
-      <MoviesList :movies="movies" @onWatch="watchMovie" />
+      <!-- <el-carousel :interval="4000" type="card" height="500px">
+        <el-carousel-item v-for="movie in movies" :key="movie">
+          <img class="movies__list-poster" :src="movie.Poster" alt="Poster" />
+          <div class="movies__list-content">
+            <h4 class="movies__list-title">
+              {{ movie.Title }}
+            </h4>
+            <p class="movies__list-text">
+              {{ movie.Year }}
+            </p>
+          </div>
+        </el-carousel-item>
+      </el-carousel> -->
+      <!-- <MoviesList :movies="movies" @onWatch="watchMovie" /> -->
+      <CarouselMovies
+        :movies="movies"
+        @updateIndex="handleIndexUpdate"
+        @onWatch="watchMovie"
+      >
+      </CarouselMovies>
       <div v-show="reloading" class="movies__loader">
         <Loader />
       </div>
     </div>
-    <div id="observerElement"></div>
+    <!-- <div id="observerElement"></div> -->
   </div>
 </template>
 

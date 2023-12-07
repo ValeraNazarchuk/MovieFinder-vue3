@@ -1,19 +1,20 @@
 <script setup>
-import { ref, onMounted, inject } from "vue";
+import { ref, onMounted } from "vue";
+import { useRouter, useRoute } from 'vue-router'
 import axios from "axios";
 import { useSearchStore } from "@/stores/movies";
 
-const router = inject('router');
+const router = useRouter()
+const route = useRoute()
 const searchStore = useSearchStore();
 const movie = ref({});
 const loadingFullWindow = ref(false);
-
 
 const getMovies = async (movieId) => {
   loadingFullWindow.value = true;
   try {
     const response = await axios.get(
-      `http://www.omdbapi.com/?i=${movieId}&apikey=738daa61`
+      `http://www.omdbapi.com/?i=${route.params.id}&apikey=738daa61`
     );
     movie.value = response.data;
   } catch (error) {
@@ -35,7 +36,7 @@ onMounted(() => {
   <div v-else class="movie">
     <div class="movie__inner">
       <div class="movie__content">
-        <PrimaryButton @onClick="router.push('/result-movies')"
+        <PrimaryButton @onClick="router.push(`/result-movies`)"
           >Back</PrimaryButton
         >
         <h3 class="movie__content-title">{{ movie.Title }}</h3>

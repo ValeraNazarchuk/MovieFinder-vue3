@@ -54,6 +54,13 @@ const watchMovieClick = (movieId) => {
       padding: 10px;
       height: 100%;
     }
+    &-title {
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;  
+      overflow: hidden;
+      margin-bottom: 10px;
+    }
     &-poster {
       object-fit: cover;
       width: 100%;

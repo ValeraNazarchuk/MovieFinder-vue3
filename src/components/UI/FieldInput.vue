@@ -1,5 +1,5 @@
 <script setup>
-import { defineProps, defineEmits } from "vue";
+import { defineProps, defineEmits, reactive } from "vue";
 
 const emits = defineEmits(["update:modelValue"]);
 
@@ -10,6 +10,13 @@ const { modelValue } = defineProps({
     default: "Enter text...",
   },
 });
+
+const rules = reactive({
+  name: [
+    { required: true, message: 'Please input Activity name', trigger: 'blur' },
+    { min: 3, max: 5, message: 'Length should be 3 to 5', trigger: 'blur' },
+  ]
+})
 </script>
 
 <template>

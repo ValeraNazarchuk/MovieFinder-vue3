@@ -1,16 +1,24 @@
 <script setup>
 import { ref } from "vue";
-import { useRouter } from "vue-router";
+import { useRouter, useRoute } from 'vue-router'
 import { useSearchStore } from "@/stores/movies.js";
 
 const searchStore = useSearchStore();
-const router = useRouter();
+const router = useRouter()
+const route = useRoute()
 
 const searchMovieValue = ref("");
 
 const searchClick = () => {
-  searchStore.searchMovies = searchMovieValue.value;
-  router.push("/result-movies");
+  // searchStore.searchMovies = searchMovieValue.value;
+  // router.push(`/result-movies/Search=${searchMovieValue.value}`);
+  router.push(`/result-movies?search=${searchMovieValue.value}`);
+  // router.push({
+  //   name: 'result-movies',
+  //   params: {
+  //     search: searchMovieValue.value
+  //   }
+  // });
 };
 </script>
 
