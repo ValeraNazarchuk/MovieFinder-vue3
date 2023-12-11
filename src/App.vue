@@ -1,10 +1,10 @@
 <script setup>
+import DefaultLayout from "@/layouts/DefaultLayout.vue";
 import MainLayout from "@/layouts/MainLayout.vue";
-import Header from "@/components/Header/Header.vue";
 </script>
 
 <template>
-  <Header />
+  <DefaultLayout/>
   <MainLayout>
     <router-view />
   </MainLayout>
