@@ -1,7 +1,7 @@
 <script setup>
-import { defineComponent, defineEmits } from "vue";
+import { defineEmits } from "vue";
 
-const emits = defineEmits(["update:modelValue"]);
+const emits = defineEmits(["image-uploaded"]);
 
 const handleChange = (file) => {
   const url = URL.createObjectURL(file.raw);
@@ -15,7 +15,6 @@ const handleChange = (file) => {
     class="upload-demo"
     :auto-upload="false"
     :on-change="handleChange"
-    :on-remove="handleRemove"
     :limit="1"
   >
     <template #trigger>

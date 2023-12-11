@@ -76,26 +76,6 @@ const getMovies = async (page) => {
 
 onMounted(() => {
   getMovies(pageNumber.value);
-  // getMovies(searchStore.searchMovies, pageNumber.value);
-  // console.log(route.query);
-
-  //_____________
-  // const options = {
-  //   rootMargin: "0px",
-  //   threshold: 1.0,
-  // };
-
-  // const callback = (entries, observer) => {
-  //   if (entries[0].isIntersecting) {
-  //     pageNumber.value+=1;
-  //     loadMoreMovies(searchStore.searchMovies, pageNumber.value);
-  //   }
-  // };
-
-  // const observerElement = document.getElementById('observerElement');
-
-  // const observer = new IntersectionObserver(callback, options);
-  // observer.observe(observerElement);
 });
 </script>
 
@@ -109,20 +89,6 @@ onMounted(() => {
     </div>
     <div v-else>
       <h2 class="movies__title">Movies</h2>
-      <!-- <el-carousel :interval="4000" type="card" height="500px">
-        <el-carousel-item v-for="movie in movies" :key="movie">
-          <img class="movies__list-poster" :src="movie.Poster" alt="Poster" />
-          <div class="movies__list-content">
-            <h4 class="movies__list-title">
-              {{ movie.Title }}
-            </h4>
-            <p class="movies__list-text">
-              {{ movie.Year }}
-            </p>
-          </div>
-        </el-carousel-item>
-      </el-carousel> -->
-      <!-- <MoviesList :movies="movies" @onWatch="watchMovie" /> -->
       <CarouselMovies
         :movies="movies"
         @updateIndex="handleIndexUpdate"
@@ -133,7 +99,6 @@ onMounted(() => {
         <Loader />
       </div>
     </div>
-    <!-- <div id="observerElement"></div> -->
   </div>
 </template>
 

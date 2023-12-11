@@ -1,36 +1,79 @@
 <script setup>
-import { ref } from "vue";
+import { ref, reactive } from "vue";
 import Upload from "@/components/Form/Upload.vue";
 
-const data = ref({
+// const data = reactive({
+//   title: "",
+//   poster: null,
+//   director: "",
+//   year: "",
+// })
+
+const validateNumber = (rule, value, callback) => {
+  const valueLength = value.toString().split("").length;
+  if (!value) {
+    return callback(new Error("Please input the Year"));
+  }
+  if (!Number.isInteger(value)) {
+    callback(new Error("Year must be a number"));
+  } else if (valueLength < 4) {
+    callback(new Error("The length should be from 4"));
+  } else {
+    callback();
+  }
+};
+
+const ruleFormRef = ref();
+const rules = reactive({
+  title: [
+    { required: true, message: "Please input title movie", trigger: "blur" },
+    { min: 3, message: "The length should be from 3", trigger: "blur" },
+  ],
+  director: [
+    { required: true, message: "Please input movie director", trigger: "blur" },
+    { min: 3, message: "The length should be from 3", trigger: "blur" },
+  ],
+  year: [
+    { required: true, message: "Please input year movie", trigger: "blur" },
+    { validator: validateNumber, trigger: "blur" },
+  ],
+});
+
+const data = reactive({
   title: "",
   poster: null,
   director: "",
   year: "",
 });
 
-const sendForm = () => {
-  console.log(`
-    Title: ${data.value.title}
-    Poster: ${data.value.poster}
-    Director: ${data.value.director}
-    Year: ${data.value.year}
+const sendForm = async (formEl) => {
+  if (!formEl) return;
+  await formEl.validate((valid, fields) => {
+    if (valid) {
+      console.log(`
+    Title: ${data.title}
+    Poster: ${data.poster}
+    Director: ${data.director}
+    Year: ${data.year}
   `);
 
-  data.value = {
-    title: "",
-    poster: null,
-    director: "",
-    year: "",
-  };
+      data.title = "";
+      data.poster = null;
+      data.director = "";
+      data.year = "";
+    } else {
+      console.log("error submit!", fields);
+    }
+  });
 };
+
 const handleImageUploaded = (url) => {
-  data.value.poster = url;
+  data.poster = url;
 };
 </script>
 
 <template>
-  <form class="form" @submit.prevent>
+  <!-- <form class="form" @submit.prevent>
     <div class="form__inner">
       <h3 class="form__title">Sent movie</h3>
       <div class="form__box">
@@ -41,26 +84,53 @@ const handleImageUploaded = (url) => {
         <PrimaryButton @click="sendForm"> Send </PrimaryButton>
       </div>
     </div>
-  </form>
+  </form> -->
+  <el-form
+    ref="ruleFormRef"
+    :model="data"
+    :rules="rules"
+    class="form"
+    labelPosition="top"
+    label-width="120px"
+    status-icon
+    @submit.prevent
+  >
+    <h3 class="form__title">Sent movie</h3>
+    <el-form-item class="form__item" label="Enter Title" prop="title">
+      <FieldInput v-model="data.title" />
+    </el-form-item>
+    <el-form-item class="form__item" label="Enter Director" prop="director">
+      <FieldInput v-model="data.director" />
+    </el-form-item>
+    <el-form-item class="form__item" label="Enter Year" prop="year">
+      <FieldInput v-model.number="data.year" />
+    </el-form-item>
+    <el-form-item class="form__item" label="Enter Poster" prop="poster">
+      <Upload @image-uploaded="handleImageUploaded" />
+    </el-form-item>
+    <el-form-item>
+      <PrimaryButton @click="sendForm(ruleFormRef)"> Send </PrimaryButton>
+    </el-form-item>
+  </el-form>
 </template>
 
 <style lang="scss" scoped>
 .form {
-  &__inner {
-  }
+  margin: 0 auto;
+  max-width: 500px;
   &__title {
     color: $white;
     text-align: center;
     font-size: 32px;
     line-height: 46px;
   }
-  &__box {
-    margin: 0 auto;
-    max-width: 500px;
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-  }
+  // &__box {
+  //   margin: 0 auto;
+  //   max-width: 500px;
+  //   display: flex;
+  //   flex-direction: column;
+  //   gap: 15px;
+  // }
   .upload-demo {
     display: inline-block;
     margin-right: 20px;
