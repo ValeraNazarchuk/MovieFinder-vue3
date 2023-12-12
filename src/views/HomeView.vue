@@ -1,12 +1,10 @@
 <script setup>
 import { ref, reactive } from "vue";
 import { useRouter } from "vue-router";
-import { useSearchStore } from "@/stores/movies.js";
+// import { useMovieStore } from "@/stores/movies.js";
 
-const searchStore = useSearchStore();
+// const searchStore = useMovieStore();
 const router = useRouter();
-
-// const searchMovieValue = ref("");
 
 const ruleFormRef = ref();
 const rules = reactive({
@@ -23,6 +21,7 @@ const searchClick = async (formEl) => {
   if (!formEl) return;
   await formEl.validate((valid, fields) => {
     if (valid) {
+      // searchStore.getMovies(ruleForm.movieValue, '1')
       router.push(`/result-movies?search=${ruleForm.movieValue}`);
     } else {
       console.log("error submit!", fields);

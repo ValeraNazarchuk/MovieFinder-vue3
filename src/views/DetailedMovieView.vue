@@ -1,36 +1,37 @@
 <script setup>
 import { ref, onMounted } from "vue";
 import { useRouter, useRoute } from 'vue-router'
-import axios from "axios";
-import { useSearchStore } from "@/stores/movies";
+// import axios from "axios";
+import { useMoviesStore } from "@/stores/movies";
 
 const router = useRouter()
 const route = useRoute()
-const searchStore = useSearchStore();
-const movie = ref({});
-const loadingFullWindow = ref(false);
+const movieStore = useMoviesStore();
+// const movie = movieStore.movie
+// const loadingFullWindow = ref(false);
 
-const getMovies = async (movieId) => {
-  loadingFullWindow.value = true;
-  try {
-    const response = await axios.get(
-      `http://www.omdbapi.com/?i=${route.params.id}&apikey=738daa61`
-    );
-    movie.value = response.data;
-  } catch (error) {
-    console.error("Error fetching movies:", error);
-  } finally {
-    loadingFullWindow.value = false;
-  }
-};
+// const getMovies = async (movieId) => {
+  // loadingFullWindow.value = true;
+  // try {
+  //   const response = await axios.get(
+  //     `http://www.omdbapi.com/?i=${route.params.id}&apikey=738daa61`
+  //   );
+  //   movie.value = response.data;
+  // } catch (error) {
+  //   console.error("Error fetching movies:", error);
+  // } finally {
+  //   loadingFullWindow.value = false;
+  // }
+// };
 
 onMounted(() => {
-  getMovies(searchStore.moviesId);
+  // getMovies(searchStore.moviesId);
+  movieStore.getDetailedMovie(route.params.id)
 });
 </script>
 
 <template>
-  <div v-if="loadingFullWindow" class="loader-container">
+  <div v-if="movieStore.loading" class="loader-container">
     <Loader />
   </div>
   <div v-else class="movie">
@@ -39,22 +40,22 @@ onMounted(() => {
         <PrimaryButton @onClick="router.push(`/result-movies`)"
           >Back</PrimaryButton
         >
-        <h3 class="movie__content-title">{{ movie.Title }}</h3>
+        <h3 class="movie__content-title">{{ movieStore.movie.Title }}</h3>
         <p>
-          IMDb: <strong>{{ movie.imdbRating }}</strong>
+          IMDb: <strong>{{ movieStore.movie.imdbRating }}</strong>
         </p>
         <p>
-          Year: <strong>{{ movie.Year }}</strong>
+          Year: <strong>{{ movieStore.movie.Year }}</strong>
         </p>
         <p>
-          Plot: <strong> {{ movie.Plot }} </strong>
+          Plot: <strong> {{ movieStore.movie.Plot }} </strong>
         </p>
         <p>
-          Writer: <strong> {{ movie.Writer }} </strong>
+          Writer: <strong> {{ movieStore.movie.Writer }} </strong>
         </p>
       </div>
       <div class="movie__images">
-        <img :src="movie.Poster" alt="poster" />
+        <img :src="movieStore.movie.Poster" alt="poster" />
       </div>
     </div>
   </div>

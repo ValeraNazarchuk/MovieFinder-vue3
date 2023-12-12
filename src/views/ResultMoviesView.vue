@@ -1,15 +1,15 @@
 <script setup>
 import { onMounted, ref } from "vue";
 import { useRouter, useRoute } from "vue-router";
-import { useSearchStore } from "@/stores/movies";
+import { useMoviesStore } from "@/stores/movies";
 import axios from "axios";
 import CarouselMovies from "@/components/ResultMovies/CarouselMovies.vue";
 
 const router = useRouter();
 const route = useRoute();
-const searchStore = useSearchStore();
-const movies = ref([]);
-const loadingFullWindow = ref(false);
+const moviesStore = useMoviesStore();
+// const movies = ref([]);
+// const loadingFullWindow = ref(false);
 const reloading = ref(false);
 const pageNumber = ref(1);
 
@@ -27,7 +27,9 @@ let setTimer;
 
 const startTimer = () => {
   setTimer = setTimeout(() => {
-    getMovies(pageNumber);
+    // getMovies(pageNumber);
+    moviesStore.getListMovies(route.query.search, pageNumber.value)
+    console.log(1);
   }, 3000);
 };
 
@@ -45,19 +47,19 @@ const handleIndexUpdate = (index) => {
   }
 };
 
-const getMovies = async (page) => {
-  loadingFullWindow.value = true;
-  try {
-    const response = await axios.get(
-      `http://www.omdbapi.com/?s=${route.query.search}&page=${page.value}&apikey=738daa61`
-    );
-    movies.value = response.data.Search;
-  } catch (error) {
-    console.error("Error fetching movies:", error);
-  } finally {
-    loadingFullWindow.value = false;
-  }
-};
+// const getMovies = async (page) => {
+//   loadingFullWindow.value = true;
+//   try {
+//     const response = await axios.get(
+//       `http://www.omdbapi.com/?s=${route.query.search}&page=${page.value}&apikey=738daa61`
+//     );
+//     movies.value = response.data.Search;
+//   } catch (error) {
+//     console.error("Error fetching movies:", error);
+//   } finally {
+//     loadingFullWindow.value = false;
+//   }
+// };
 
 // const loadMoreMovies = async (movie, page) => {
 //   reloading.value = true;
@@ -75,27 +77,28 @@ const getMovies = async (page) => {
 // };
 
 onMounted(() => {
-  getMovies(pageNumber.value);
+  // getMovies(pageNumber.value);
+  moviesStore.getListMovies(route.query.search, pageNumber.value)
 });
 </script>
 
 <template>
   <div class="movies">
-    <h2 class="movies__error" v-if="!movies && !loadingFullWindow">
+    <h2 class="movies__error" v-if="!moviesStore.movies && !moviesStore.loading">
       No movies found
     </h2>
-    <div v-else-if="loadingFullWindow" class="loader-container">
+    <div v-else-if="moviesStore.loading" class="loader-container">
       <Loader />
     </div>
     <div v-else>
       <h2 class="movies__title">Movies</h2>
       <CarouselMovies
-        :movies="movies"
+        :movies="moviesStore.movies"
         @updateIndex="handleIndexUpdate"
         @onWatch="watchMovie"
       >
       </CarouselMovies>
-      <div v-show="reloading" class="movies__loader">
+      <div v-show="moviesStore.loading" class="movies__loader">
         <Loader />
       </div>
     </div>
