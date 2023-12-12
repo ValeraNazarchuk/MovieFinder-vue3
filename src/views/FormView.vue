@@ -2,13 +2,6 @@
 import { ref, reactive } from "vue";
 import Upload from "@/components/Form/Upload.vue";
 
-// const data = reactive({
-//   title: "",
-//   poster: null,
-//   director: "",
-//   year: "",
-// })
-
 const validateNumber = (rule, value, callback) => {
   const valueLength = value.toString().split("").length;
   if (!value) {
@@ -37,6 +30,9 @@ const rules = reactive({
     { required: true, message: "Please input year movie", trigger: "blur" },
     { validator: validateNumber, trigger: "blur" },
   ],
+  poster: [
+    { required: true, message: "Please insert poster", trigger: "change" },
+  ],
 });
 
 const data = reactive({
@@ -51,11 +47,11 @@ const sendForm = async (formEl) => {
   await formEl.validate((valid, fields) => {
     if (valid) {
       console.log(`
-    Title: ${data.title}
-    Poster: ${data.poster}
-    Director: ${data.director}
-    Year: ${data.year}
-  `);
+        Title: ${data.title}
+        Poster: ${data.poster}
+        Director: ${data.director}
+        Year: ${data.year}
+      `);
 
       data.title = "";
       data.poster = null;
@@ -73,18 +69,6 @@ const handleImageUploaded = (url) => {
 </script>
 
 <template>
-  <!-- <form class="form" @submit.prevent>
-    <div class="form__inner">
-      <h3 class="form__title">Sent movie</h3>
-      <div class="form__box">
-        <FieldInput v-model="data.title" :placeholder="'Enter Title'" />
-        <FieldInput v-model="data.director" :placeholder="'Enter Director'" />
-        <FieldInput v-model="data.year" :placeholder="'Enter Year'" />
-        <Upload @image-uploaded="handleImageUploaded" />
-        <PrimaryButton @click="sendForm"> Send </PrimaryButton>
-      </div>
-    </div>
-  </form> -->
   <el-form
     ref="ruleFormRef"
     :model="data"
@@ -123,17 +107,6 @@ const handleImageUploaded = (url) => {
     text-align: center;
     font-size: 32px;
     line-height: 46px;
-  }
-  // &__box {
-  //   margin: 0 auto;
-  //   max-width: 500px;
-  //   display: flex;
-  //   flex-direction: column;
-  //   gap: 15px;
-  // }
-  .upload-demo {
-    display: inline-block;
-    margin-right: 20px;
   }
 }
 </style>

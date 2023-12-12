@@ -18,7 +18,7 @@ const handleChange = (file) => {
     :limit="1"
   >
     <template #trigger>
-      <el-button type="primary">Select file</el-button>
+      <el-button type="primary">Select poster</el-button>
     </template>
 
     <template #tip>
@@ -26,11 +26,13 @@ const handleChange = (file) => {
         JPG/PNG files with a size less than 500kb
       </div>
     </template>
-
-    <template>
-      <div></div>
-    </template>
   </el-upload>
 </template>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.upload-demo {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0px 20px;
+}
+</style>
