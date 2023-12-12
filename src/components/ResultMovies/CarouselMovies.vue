@@ -1,5 +1,5 @@
 <script setup>
-import { defineProps, ref } from "vue";
+import { defineProps } from "vue";
 import MovieInfo from './MovieInfo.vue'
 
 const emits = defineEmits(["onWatch", "updateIndex"]);
@@ -25,7 +25,7 @@ const watchMovieClick = (movieId) => {
     class="carousel"
     arrow="always"
     @change="handleCarouselChange"
-    :interval="100000"
+    :interval="5000"
     type="card"
     height="500px"
   >

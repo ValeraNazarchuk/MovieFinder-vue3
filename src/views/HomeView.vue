@@ -21,8 +21,7 @@ const searchClick = async (formEl) => {
   if (!formEl) return;
   await formEl.validate((valid, fields) => {
     if (valid) {
-      // searchStore.getMovies(ruleForm.movieValue, '1')
-      router.push(`/result-movies?search=${ruleForm.movieValue}`);
+      router.push(`/result-movies?search=${ruleForm.movieValue}&page=1`);
     } else {
       console.log("error submit!", fields);
     }

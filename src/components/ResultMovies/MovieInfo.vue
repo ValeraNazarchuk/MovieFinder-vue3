@@ -19,8 +19,7 @@ const { movie } = defineProps({
   />
   <el-empty
     v-else
-    image-size="200"
-    class="carousel__poster"
+    :image-size="200"
     description="No photo"
   />
   <div class="carousel__content">

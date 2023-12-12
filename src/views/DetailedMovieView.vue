@@ -1,5 +1,5 @@
 <script setup>
-import { ref, onMounted } from "vue";
+import { onMounted } from "vue";
 import { useRouter, useRoute } from 'vue-router'
 // import axios from "axios";
 import { useMoviesStore } from "@/stores/movies";
@@ -55,7 +55,12 @@ onMounted(() => {
         </p>
       </div>
       <div class="movie__images">
-        <img :src="movieStore.movie.Poster" alt="poster" />
+        <img v-if="movieStore.movie.Poster !== 'N/A'" :src="movieStore.movie.Poster" alt="poster" />
+          <el-empty
+            v-else
+            :image-size="200"
+            description="No photo"
+          />
       </div>
     </div>
   </div>

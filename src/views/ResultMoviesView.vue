@@ -2,7 +2,7 @@
 import { onMounted, ref } from "vue";
 import { useRouter, useRoute } from "vue-router";
 import { useMoviesStore } from "@/stores/movies";
-import axios from "axios";
+// import axios from "axios";
 import CarouselMovies from "@/components/ResultMovies/CarouselMovies.vue";
 
 const router = useRouter();
@@ -10,8 +10,9 @@ const route = useRoute();
 const moviesStore = useMoviesStore();
 // const movies = ref([]);
 // const loadingFullWindow = ref(false);
-const reloading = ref(false);
+// const reloading = ref(false);
 const pageNumber = ref(1);
+// const pageNumber = route.query.page;
 
 const watchMovie = (movie) => {
   router.push(`/detailed-movies/${movie.imdbID}`);
@@ -23,25 +24,54 @@ const watchMovie = (movie) => {
   // });
 };
 
+// const changePage = (newPage) => {
+//   router.push({
+//     path: route.path,
+//     query: {
+//       ...route.query,  // Копирование текущих параметров
+//       page: newPage
+//     }
+//   });
+// }
+
 let setTimer;
 
-const startTimer = () => {
+const startPageSwitchTimer = (index) => {
   setTimer = setTimeout(() => {
     // getMovies(pageNumber);
-    moviesStore.getListMovies(route.query.search, pageNumber.value)
-    console.log(1);
+    // moviesStore.getListMovies(route.query.search, pageNumber.value);
+    // changePage(pageNumber.value++)
+    // router.push({
+    //   path: route.path,
+    //   query: {
+    //     ...route.query,  // Копирование текущих параметров
+    //     page: pageNumber.value++
+    //   }
+    // });
+    // pageNumber.value++
+    if (index > 8) {
+      pageNumber.value++;
+    }else {
+      pageNumber.value--;
+    }
+    router.push(
+      `/result-movies?search=${route.query.search}&page=${pageNumber.value}`
+    );
+
+    // Як правильно зробити шоб не було затримки через route.query.page
+    moviesStore.getListMovies(route.query.search, pageNumber.value);
   }, 3000);
 };
 
 const handleIndexUpdate = (index) => {
   if (index > 8) {
-    pageNumber.value++;
-    clearTimeout(setTimer);
-    startTimer();
+    // pageNumber.value++;
+    // clearTimeout(setTimer);
+    startPageSwitchTimer(index);
   } else if (pageNumber.value > 1 && index === 0) {
-    pageNumber.value--;
-    clearTimeout(setTimer);
-    startTimer();
+    // pageNumber.value--;
+    // clearTimeout(setTimer);
+    startPageSwitchTimer();
   } else {
     clearTimeout(setTimer);
   }
@@ -76,15 +106,21 @@ const handleIndexUpdate = (index) => {
 //   }
 // };
 
+// console.log(route.query);
+
 onMounted(() => {
   // getMovies(pageNumber.value);
-  moviesStore.getListMovies(route.query.search, pageNumber.value)
+  // moviesStore.getListMovies(route.query.search, pageNumber.value);
+  moviesStore.getListMovies(route.query.search, route.query.page);
 });
 </script>
 
 <template>
   <div class="movies">
-    <h2 class="movies__error" v-if="!moviesStore.movies && !moviesStore.loading">
+    <h2
+      class="movies__error"
+      v-if="!moviesStore.movies && !moviesStore.loading"
+    >
       No movies found
     </h2>
     <div v-else-if="moviesStore.loading" class="loader-container">

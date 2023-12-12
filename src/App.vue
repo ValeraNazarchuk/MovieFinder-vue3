@@ -1,11 +1,9 @@
 <script setup>
-import DefaultLayout from "@/layouts/DefaultLayout.vue";
-import MainLayout from "@/layouts/MainLayout.vue";
+import DefaultLayout from "./layouts/DefaultLayout.vue";
 </script>
 
 <template>
-  <DefaultLayout/>
-  <MainLayout>
-    <router-view />
-  </MainLayout>
+  <DefaultLayout>
+    <slot />
+  </DefaultLayout>
 </template>

@@ -21,7 +21,6 @@ const routes = [
     path: "/result-movies",
     name: "result-movies",
     component: () => import("@/views/ResultMoviesView.vue"),
-    // props: true,
   },
 ];
 
