@@ -33,8 +33,10 @@ const startPageSwitchTimer = (index) => {
 
 const handleIndexUpdate = (index) => {
   if (index > 8) {
+    clearTimeout(setTimer);
     startPageSwitchTimer(index);
   } else if (pageNumber.value > 1 && index === 0) {
+    clearTimeout(setTimer);
     startPageSwitchTimer();
   } else {
     clearTimeout(setTimer);

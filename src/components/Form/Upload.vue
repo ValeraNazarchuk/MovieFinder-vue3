@@ -3,6 +3,13 @@ import { defineEmits } from "vue";
 
 const emits = defineEmits(["image-uploaded"]);
 
+const { showUpload } = defineProps({
+  showUpload: {
+    type: Boolean,
+    required: true,
+  },
+});
+
 const handleChange = (file) => {
   const url = URL.createObjectURL(file.raw);
 
@@ -16,24 +23,27 @@ const handleChange = (file) => {
     :auto-upload="false"
     :on-change="handleChange"
     :limit="1"
+    :show-file-list="showUpload"
   >
-    <template #trigger>
-      <el-button type="primary">Select poster</el-button>
-    </template>
-
     <template #tip>
       <div class="el-upload__tip">
-        JPG/PNG files with a size less than 500kb
+        limit 1 file, delete the previous file before installing the new one
       </div>
+    </template>
+    <template #trigger>
+      <el-button type="primary">Select poster</el-button>
     </template>
   </el-upload>
 </template>
 
 <style lang="scss" scoped>
-
 .upload-demo {
   display: flex;
   flex-wrap: wrap;
   gap: 0px 20px;
+}
+
+.el-upload__tip {
+  color: $fs-white;
 }
 </style>

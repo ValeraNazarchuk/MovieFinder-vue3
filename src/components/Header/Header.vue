@@ -12,7 +12,7 @@ const navList = ref([
   <header class="header">
     <div class="container">
       <div class="header__inner">
-        <a class="header__logo" href="#">MovieFinder</a>
+        <router-link class="header__logo" to="/">MovieFinder</router-link>
         <Navbar :list="navList" />
       </div>
     </div>

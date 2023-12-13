@@ -2,7 +2,16 @@
 import { ref, reactive } from "vue";
 import Upload from "@/components/Form/Upload.vue";
 
-const validateNumber = (rule, value, callback) => {
+const showUpload = ref(true);
+
+const data = reactive({
+  title: "",
+  poster: null,
+  director: "",
+  year: "",
+});
+
+const validateYear = (rule, value, callback) => {
   const valueLength = value.toString().split("").length;
   if (!value) {
     return callback(new Error("Please input the Year"));
@@ -28,18 +37,11 @@ const rules = reactive({
   ],
   year: [
     { required: true, message: "Please input year movie", trigger: "blur" },
-    { validator: validateNumber, trigger: "blur" },
+    { validator: validateYear, trigger: "blur" },
   ],
   poster: [
     { required: true, message: "Please insert poster", trigger: "change" },
   ],
-});
-
-const data = reactive({
-  title: "",
-  poster: null,
-  director: "",
-  year: "",
 });
 
 const sendForm = async (formEl) => {
@@ -57,6 +59,8 @@ const sendForm = async (formEl) => {
       data.poster = null;
       data.director = "";
       data.year = "";
+
+      showUpload.value = false;
     } else {
       console.log("error submit!", fields);
     }
@@ -90,7 +94,10 @@ const handleImageUploaded = (url) => {
       <FieldInput v-model.number="data.year" />
     </el-form-item>
     <el-form-item class="form__item" label="Enter Poster" prop="poster">
-      <Upload @image-uploaded="handleImageUploaded" />
+      <Upload
+        :showUpload="showUpload"
+        @image-uploaded="handleImageUploaded"
+      />
     </el-form-item>
     <el-form-item>
       <PrimaryButton @click="sendForm(ruleFormRef)"> Send </PrimaryButton>
