@@ -22,7 +22,6 @@ const startPageSwitchTimer = (index) => {
       `/result-movies?search=${route.query.search}&page=${pageNumber.value}`
     );
 
-    // Як правильно зробити шоб не було затримки через route.query.page
     moviesStore.getListMovies(route.query.search, pageNumber.value);
   }, 3000);
 };

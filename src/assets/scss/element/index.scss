@@ -1,2 +1,6 @@
-// $black: #000;
-// $white: #fff;
+$black: #000;
+$white: #fff;
+
+:deep(.el-form-item__label) {
+  color: $white;
+}

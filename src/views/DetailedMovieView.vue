@@ -1,11 +1,14 @@
 <script setup>
-import { onMounted } from "vue";
+import { onMounted, computed } from "vue";
 import { useRouter, useRoute } from "vue-router";
 import { useMoviesStore } from "@/stores/movies";
 
 const router = useRouter();
 const route = useRoute();
 const movieStore = useMoviesStore();
+const movie = computed(() => {
+  return movieStore.movie;
+});
 
 onMounted(() => {
   movieStore.getDetailedMovie(route.params.id);
@@ -19,29 +22,23 @@ onMounted(() => {
   <div v-else class="movie">
     <div class="movie__inner">
       <div class="movie__content">
-        <PrimaryButton @onClick="router.back()"
-          >Back</PrimaryButton
-        >
-        <h3 class="movie__content-title">{{ movieStore.movie.Title }}</h3>
+        <PrimaryButton @onClick="router.back()">Back</PrimaryButton>
+        <h3 class="movie__content-title">{{ movie.Title }}</h3>
         <p>
-          IMDb: <strong>{{ movieStore.movie.imdbRating }}</strong>
+          IMDb: <strong>{{ movie.imdbRating }}</strong>
         </p>
         <p>
-          Year: <strong>{{ movieStore.movie.Year }}</strong>
+          Year: <strong>{{ movie.Year }}</strong>
         </p>
         <p>
-          Plot: <strong> {{ movieStore.movie.Plot }} </strong>
+          Plot: <strong> {{ movie.Plot }} </strong>
         </p>
         <p>
-          Writer: <strong> {{ movieStore.movie.Writer }} </strong>
+          Writer: <strong> {{ movie.Writer }} </strong>
         </p>
       </div>
       <div class="movie__images">
-        <img
-          v-if="movieStore.movie.Poster !== 'N/A'"
-          :src="movieStore.movie.Poster"
-          alt="poster"
-        />
+        <img v-if="movie.Poster !== 'N/A'" :src="movie.Poster" alt="poster" />
         <el-empty v-else :image-size="200" description="No photo" />
       </div>
     </div>
