@@ -35,26 +35,6 @@ const watchMovieClick = (movieId) => {
       :key="movie"
     >
     <MovieInfo :movie="movie" />
-      <!-- <img
-        v-if="movie.Poster !== 'N/A'"
-        class="carousel__poster"
-        :src="movie.Poster"
-        alt="Poster"
-      />
-      <el-empty
-        v-else
-        image-size="200"
-        class="carousel__poster"
-        description="No photo"
-      />
-      <div class="carousel__content">
-        <h4 class="carousel__title">
-          {{ movie.Title }}
-        </h4>
-        <p class="carousel__text">
-          {{ movie.Year }}
-        </p>
-      </div> -->
       <PrimaryButton @onClick="watchMovieClick(movie)">Watch</PrimaryButton> 
     </el-carousel-item>
   </el-carousel>

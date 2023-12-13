@@ -2,56 +2,24 @@
 import { onMounted, ref } from "vue";
 import { useRouter, useRoute } from "vue-router";
 import { useMoviesStore } from "@/stores/movies";
-// import axios from "axios";
 import CarouselMovies from "@/components/ResultMovies/CarouselMovies.vue";
 
 const router = useRouter();
 const route = useRoute();
 const moviesStore = useMoviesStore();
-// const movies = ref([]);
-// const loadingFullWindow = ref(false);
-// const reloading = ref(false);
 const pageNumber = ref(1);
-// const pageNumber = route.query.page;
 
 const watchMovie = (movie) => {
   router.push(`/detailed-movies/${movie.imdbID}`);
-  // router.push({
-  //   name: 'detailed-movies',
-  //   params: {
-  //     id: movie.imdbID
-  //   }
-  // });
 };
-
-// const changePage = (newPage) => {
-//   router.push({
-//     path: route.path,
-//     query: {
-//       ...route.query,  // Копирование текущих параметров
-//       page: newPage
-//     }
-//   });
-// }
 
 let setTimer;
 
 const startPageSwitchTimer = (index) => {
   setTimer = setTimeout(() => {
-    // getMovies(pageNumber);
-    // moviesStore.getListMovies(route.query.search, pageNumber.value);
-    // changePage(pageNumber.value++)
-    // router.push({
-    //   path: route.path,
-    //   query: {
-    //     ...route.query,  // Копирование текущих параметров
-    //     page: pageNumber.value++
-    //   }
-    // });
-    // pageNumber.value++
     if (index > 8) {
       pageNumber.value++;
-    }else {
+    } else {
       pageNumber.value--;
     }
     router.push(
@@ -65,52 +33,15 @@ const startPageSwitchTimer = (index) => {
 
 const handleIndexUpdate = (index) => {
   if (index > 8) {
-    // pageNumber.value++;
-    // clearTimeout(setTimer);
     startPageSwitchTimer(index);
   } else if (pageNumber.value > 1 && index === 0) {
-    // pageNumber.value--;
-    // clearTimeout(setTimer);
     startPageSwitchTimer();
   } else {
     clearTimeout(setTimer);
   }
 };
 
-// const getMovies = async (page) => {
-//   loadingFullWindow.value = true;
-//   try {
-//     const response = await axios.get(
-//       `http://www.omdbapi.com/?s=${route.query.search}&page=${page.value}&apikey=738daa61`
-//     );
-//     movies.value = response.data.Search;
-//   } catch (error) {
-//     console.error("Error fetching movies:", error);
-//   } finally {
-//     loadingFullWindow.value = false;
-//   }
-// };
-
-// const loadMoreMovies = async (movie, page) => {
-//   reloading.value = true;
-//   try {
-//     const response = await axios.get(
-//       // `http://www.omdbapi.com/?s=${route.params.search}&page=${page}&apikey=738daa61`
-//       `http://www.omdbapi.com/?s=${route.query}&page=${page}&apikey=738daa61`
-//     );
-//     movies.value = [...movies.value, ...response.data.Search];
-//   } catch (error) {
-//     console.error("Error fetching movies:", error);
-//   } finally {
-//     reloading.value = false;
-//   }
-// };
-
-// console.log(route.query);
-
 onMounted(() => {
-  // getMovies(pageNumber.value);
-  // moviesStore.getListMovies(route.query.search, pageNumber.value);
   moviesStore.getListMovies(route.query.search, route.query.page);
 });
 </script>

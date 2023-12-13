@@ -1,11 +1,11 @@
 <script setup>
+import { ref } from "vue";
 import Navbar from "./NavBar.vue";
 
-const navList = [
+const navList = ref([
   { text: "Home", link: "/" },
   { text: "Form", link: "/form" },
-]
-
+]);
 </script>
 
 <template>

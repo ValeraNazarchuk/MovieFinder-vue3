@@ -8,7 +8,6 @@ import * as ElementPlusIconsVue from "@element-plus/icons-vue";
 import components from "@/components/UI/index.js";
 
 import "./assets/scss/main.scss";
-// import "./assets/scss/vars.scss";
 
 const app = createApp(App);
 

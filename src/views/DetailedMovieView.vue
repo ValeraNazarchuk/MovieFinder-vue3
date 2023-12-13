@@ -1,32 +1,14 @@
 <script setup>
 import { onMounted } from "vue";
-import { useRouter, useRoute } from 'vue-router'
-// import axios from "axios";
+import { useRouter, useRoute } from "vue-router";
 import { useMoviesStore } from "@/stores/movies";
 
-const router = useRouter()
-const route = useRoute()
+const router = useRouter();
+const route = useRoute();
 const movieStore = useMoviesStore();
-// const movie = movieStore.movie
-// const loadingFullWindow = ref(false);
-
-// const getMovies = async (movieId) => {
-  // loadingFullWindow.value = true;
-  // try {
-  //   const response = await axios.get(
-  //     `http://www.omdbapi.com/?i=${route.params.id}&apikey=738daa61`
-  //   );
-  //   movie.value = response.data;
-  // } catch (error) {
-  //   console.error("Error fetching movies:", error);
-  // } finally {
-  //   loadingFullWindow.value = false;
-  // }
-// };
 
 onMounted(() => {
-  // getMovies(searchStore.moviesId);
-  movieStore.getDetailedMovie(route.params.id)
+  movieStore.getDetailedMovie(route.params.id);
 });
 </script>
 
@@ -55,12 +37,12 @@ onMounted(() => {
         </p>
       </div>
       <div class="movie__images">
-        <img v-if="movieStore.movie.Poster !== 'N/A'" :src="movieStore.movie.Poster" alt="poster" />
-          <el-empty
-            v-else
-            :image-size="200"
-            description="No photo"
-          />
+        <img
+          v-if="movieStore.movie.Poster !== 'N/A'"
+          :src="movieStore.movie.Poster"
+          alt="poster"
+        />
+        <el-empty v-else :image-size="200" description="No photo" />
       </div>
     </div>
   </div>

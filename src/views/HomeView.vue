@@ -1,9 +1,7 @@
 <script setup>
 import { ref, reactive } from "vue";
 import { useRouter } from "vue-router";
-// import { useMovieStore } from "@/stores/movies.js";
 
-// const searchStore = useMovieStore();
 const router = useRouter();
 
 const ruleFormRef = ref();
@@ -28,17 +26,6 @@ const searchClick = async (formEl) => {
   });
 };
 
-// const searchClick = async () => {
-//   // searchStore.searchMovies = searchMovieValue.value;
-//   // router.push(`/result-movies/Search=${searchMovieValue.value}`);
-//   // router.push(`/result-movies?search=${searchMovieValue.value}`);
-//   // router.push({
-//   //   name: 'result-movies',
-//   //   params: {
-//   //     search: searchMovieValue.value
-//   //   }
-//   // });
-// };
 </script>
 
 <template>
