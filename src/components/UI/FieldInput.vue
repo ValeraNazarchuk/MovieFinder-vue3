@@ -18,9 +18,9 @@ const { modelValue } = defineProps({
 
 <style lang="scss" scoped>
 .field-input {
-  color: $white;
+  color: $fs-white;
   &::placeholder {
-    color: $white;
+    color: $fs-white;
   }
 }
 </style>

@@ -103,7 +103,7 @@ const handleImageUploaded = (url) => {
   margin: 0 auto;
   max-width: 500px;
   &__title {
-    color: $white;
+    color: $fs-white;
     text-align: center;
     font-size: 32px;
     line-height: 46px;

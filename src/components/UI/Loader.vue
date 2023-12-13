@@ -9,7 +9,7 @@
 .loader {
   width: 68px;
   height: 68px;
-  border: 5px solid #409eff;
+  border: 5px solid $border-blue;
   border-bottom-color: transparent;
   border-radius: 50%;
   display: inline-block;

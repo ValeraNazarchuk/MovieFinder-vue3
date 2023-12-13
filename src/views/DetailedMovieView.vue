@@ -74,7 +74,7 @@ onMounted(() => {
     justify-content: space-around;
   }
   &__content {
-    color: $white;
+    color: $fs-white;
     font-size: 18px;
     display: flex;
     flex-direction: column;

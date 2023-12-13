@@ -75,7 +75,7 @@ const searchClick = async (formEl) => {
     flex-direction: column;
   }
   &__title {
-    color: $white;
+    color: $fs-white;
     text-align: center;
     font-size: 30px;
     line-height: 42px;

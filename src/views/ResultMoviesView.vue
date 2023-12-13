@@ -143,8 +143,10 @@ onMounted(() => {
 
 <style lang="scss" scoped>
 .movies {
+  margin: 0 auto;
+  max-width: 900px;
   &__error {
-    color: $white;
+    color: $fs-white;
     height: 100%;
     font-size: 32px;
     line-height: 44px;
@@ -153,7 +155,7 @@ onMounted(() => {
     justify-content: center;
   }
   &__title {
-    color: $white;
+    color: $fs-white;
     font-size: 32px;
     line-height: 44px;
     text-align: center;

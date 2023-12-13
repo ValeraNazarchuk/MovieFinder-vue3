@@ -21,8 +21,8 @@ const navList = [
 
 <style lang="scss" scoped>
 .header {
-  color: $white;
-  background: $black;
+  color: $fs-white;
+  background: $bg-black;
   padding: 25px 0px;
   &__logo {
     font-size: 20px;

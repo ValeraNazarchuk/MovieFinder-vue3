@@ -30,6 +30,7 @@ const handleChange = (file) => {
 </template>
 
 <style lang="scss" scoped>
+
 .upload-demo {
   display: flex;
   flex-wrap: wrap;

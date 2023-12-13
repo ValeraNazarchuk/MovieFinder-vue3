@@ -39,9 +39,9 @@ const { movie } = defineProps({
   &__item {
     display: flex;
     flex-direction: column;
-    color: $white;
-    border: 1px solid white;
-    background-color: #4a4949;
+    color: $fs-white;
+    border: 1px solid $border-white;
+    background-color: $bg-gray;
     border-radius: 20px;
   }
   &__content {

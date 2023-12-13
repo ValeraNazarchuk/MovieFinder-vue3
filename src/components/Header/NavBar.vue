@@ -32,7 +32,7 @@ const { list } = defineProps({
       letter-spacing: 0.3em;
       transition: all 0.6s;
       border-bottom: 1px solid transparent;
-      color: #cbcbcb;
+      color: $fs-gray;
       position: relative;
       &::before {
         content: "";
@@ -41,7 +41,7 @@ const { list } = defineProps({
         bottom: -5px;
         width: 0;
         height: 3px;
-        background-color: white;
+        background-color: $bg-white;
         transition: width 0.5s;
       }
       &:hover::before {
@@ -49,7 +49,7 @@ const { list } = defineProps({
       }
       &:hover {
         text-shadow: 0 0 5px gray, 0 0 25px gray, 0 0 50px gray, 0 0 100px gray;
-        color: white;
+        color: $fs-white;
       }
     }
   }
