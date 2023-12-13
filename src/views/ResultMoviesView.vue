@@ -7,11 +7,7 @@ import CarouselMovies from "@/components/ResultMovies/CarouselMovies.vue";
 const router = useRouter();
 const route = useRoute();
 const moviesStore = useMoviesStore();
-const pageNumber = ref(1);
-
-const watchMovie = (movie) => {
-  router.push(`/detailed-movies/${movie.imdbID}`);
-};
+const pageNumber = ref(+route.query.page);
 
 let setTimer;
 
@@ -41,6 +37,11 @@ const handleIndexUpdate = (index) => {
   } else {
     clearTimeout(setTimer);
   }
+};
+
+const watchMovie = (movie) => {
+  clearTimeout(setTimer);
+  router.push(`/detailed-movies/${movie.imdbID}`);
 };
 
 onMounted(() => {

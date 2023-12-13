@@ -19,7 +19,7 @@ onMounted(() => {
   <div v-else class="movie">
     <div class="movie__inner">
       <div class="movie__content">
-        <PrimaryButton @onClick="router.push(`/result-movies`)"
+        <PrimaryButton @onClick="router.back()"
           >Back</PrimaryButton
         >
         <h3 class="movie__content-title">{{ movieStore.movie.Title }}</h3>

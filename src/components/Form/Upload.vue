@@ -27,7 +27,7 @@ const handleChange = (file) => {
   >
     <template #tip>
       <div class="el-upload__tip">
-        limit 1 file, delete the previous file before installing the new one
+        limit 1 file, delete the previous poster before installing the new one
       </div>
     </template>
     <template #trigger>
