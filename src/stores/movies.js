@@ -1,8 +1,6 @@
-import axios from "axios";
 import { defineStore } from "pinia";
 import { ref } from "vue";
-const BASE_URL = import.meta.env.VITE_BASE_URL;
-const API_KEY = import.meta.env.VITE_API_KEY;
+import api from "@/plugins/axios";
 
 export const useMoviesStore = defineStore("moviesStore", () => {
     const loading = ref(false);
@@ -12,9 +10,7 @@ export const useMoviesStore = defineStore("moviesStore", () => {
     const getListMovies = async (movie, page) => {
         loading.value = true;
         try {
-            const response = await axios.get(
-                `${BASE_URL}?s=${movie}&page=${page}&${API_KEY}`
-            );
+            const response = await api.get(`?s=${movie}&page=${page}`);
             movies.value = response.data.Search;
         } catch (error) {
             console.error("Error fetching movies:", error);
@@ -26,9 +22,7 @@ export const useMoviesStore = defineStore("moviesStore", () => {
     const getDetailedMovie = async (movieId) => {
         loading.value = true;
         try {
-            const response = await axios.get(
-                `${BASE_URL}?i=${movieId}&${API_KEY}`
-            );
+            const response = await api.get(`?i=${movieId}`);
             movie.value = response.data;
         } catch (error) {
             console.error("Error fetching movie:", error);
