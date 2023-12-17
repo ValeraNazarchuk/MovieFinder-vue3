@@ -1,6 +1,5 @@
 <script setup>
 import { defineProps, toRefs } from "vue";
-import MovieInfo from "./MovieInfo.vue";
 
 const emits = defineEmits(["onWatch", "updateIndex"]);
 
@@ -36,10 +35,10 @@ const watchMovieClick = (movieId) => {
             :key="movie"
             class="carousel__item"
         >
-            <MovieInfo :movie="movie" />
-            <PrimaryButton @onClick="watchMovieClick(movie)"
-                >Watch</PrimaryButton
-            >
+            <list-movies-carousel-content :movie="movie" />
+            <base-primary-button @onClick="watchMovieClick(movie)">
+                Watch
+            </base-primary-button>
         </el-carousel-item>
     </el-carousel>
 </template>

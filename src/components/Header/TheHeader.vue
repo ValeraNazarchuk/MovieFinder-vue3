@@ -1,6 +1,5 @@
 <script setup>
 import { ref } from "vue";
-import Navbar from "./NavBar.vue";
 
 const navList = ref([
     { text: "Home", link: "/" },
@@ -15,7 +14,7 @@ const navList = ref([
                 <router-link class="header__logo" to="/"
                     >MovieFinder</router-link
                 >
-                <Navbar :list="navList" />
+                <the-header-navbar :list="navList" />
             </div>
         </div>
     </header>

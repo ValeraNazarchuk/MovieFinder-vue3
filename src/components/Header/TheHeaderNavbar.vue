@@ -19,9 +19,9 @@ const { list } = toRefs(props);
                 :key="index"
                 class="nav__list-item"
             >
-                <RouterLink class="nav__item-link" :to="item.link">{{
+                <router-link class="nav__item-link" :to="item.link">{{
                     item.text
-                }}</RouterLink>
+                }}</router-link>
             </li>
         </ul>
     </nav>

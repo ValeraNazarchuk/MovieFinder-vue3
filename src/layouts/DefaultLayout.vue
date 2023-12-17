@@ -1,10 +1,10 @@
 <script></script>
 
 <template>
-    <BaseHeader />
+    <the-header />
     <main class="main">
         <div class="container">
-            <RouterView />
+            <router-view />
         </div>
     </main>
 </template>

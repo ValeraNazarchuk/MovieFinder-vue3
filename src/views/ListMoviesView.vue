@@ -2,7 +2,6 @@
 import { onMounted, ref } from "vue";
 import { useRouter, useRoute } from "vue-router";
 import { useMoviesStore } from "@/stores/movies";
-import CarouselMovies from "@/components/ResultMovies/CarouselMovies.vue";
 
 const router = useRouter();
 const route = useRoute();
@@ -19,7 +18,7 @@ const startPageSwitchTimer = (index) => {
             pageNumber.value--;
         }
         router.push(
-            `/result-movies?search=${route.query.search}&page=${pageNumber.value}`
+            `/list-movies?search=${route.query.search}&page=${pageNumber.value}`
         );
 
         moviesStore.getListMovies(route.query.search, pageNumber.value);
@@ -57,16 +56,16 @@ onMounted(() => {
             No movies found
         </h2>
         <div v-else-if="moviesStore.loading" class="loader-container">
-            <BaseLoader />
+            <base-loader />
         </div>
         <div v-else>
             <h2 class="movies__title">Movies</h2>
-            <CarouselMovies
+            <list-movies-carousel
                 :movies="moviesStore.movies"
                 @updateIndex="handleIndexUpdate"
                 @onWatch="watchMovie"
             >
-            </CarouselMovies>
+            </list-movies-carousel>
         </div>
     </div>
 </template>

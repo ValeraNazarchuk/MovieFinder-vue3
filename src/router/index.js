@@ -18,9 +18,9 @@ const routes = [
         component: () => import("../views/FormView.vue"),
     },
     {
-        path: "/result-movies",
-        name: "result-movies",
-        component: () => import("@/views/ResultMoviesView.vue"),
+        path: "/list-movies",
+        name: "list-movies",
+        component: () => import("@/views/ListMoviesView.vue"),
     },
 ];
 

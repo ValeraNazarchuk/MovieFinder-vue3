@@ -17,12 +17,14 @@ onMounted(() => {
 
 <template>
     <div v-if="movieStore.loading" class="loader-container">
-        <BaseLoader />
+        <base-loader />
     </div>
     <div v-else class="movie">
         <div class="movie__inner">
             <div class="movie__content">
-                <PrimaryButton @onClick="router.back()">Back</PrimaryButton>
+                <base-primary-button @onClick="router.back()">
+                    Back
+                </base-primary-button>
                 <h3 class="movie__content-title">{{ movie.Title }}</h3>
                 <p>
                     IMDb: <strong>{{ movie.imdbRating }}</strong>

@@ -1,6 +1,5 @@
 <script setup>
 import { ref, reactive } from "vue";
-import UploadFile from "@/components/Form/UploadFile.vue";
 
 const showUpload = ref(true);
 
@@ -93,22 +92,24 @@ const handleImageUploaded = (url) => {
     >
         <h3 class="form__title">Sent movie</h3>
         <el-form-item class="form__item" label="Enter Title" prop="title">
-            <FieldInput v-model="data.title" />
+            <base-input v-model="data.title" />
         </el-form-item>
         <el-form-item class="form__item" label="Enter Director" prop="director">
-            <FieldInput v-model="data.director" />
+            <base-input v-model="data.director" />
         </el-form-item>
         <el-form-item class="form__item" label="Enter Year" prop="year">
-            <FieldInput v-model.number="data.year" />
+            <base-input v-model.number="data.year" />
         </el-form-item>
         <el-form-item class="form__item" label="Enter Poster" prop="poster">
-            <UploadFile
+            <form-upload-file
                 :show-upload="showUpload"
                 @image-uploaded="handleImageUploaded"
             />
         </el-form-item>
         <el-form-item>
-            <PrimaryButton @click="sendForm(ruleFormRef)"> Send </PrimaryButton>
+            <base-primary-button @click="sendForm(ruleFormRef)">
+                Send
+            </base-primary-button>
         </el-form-item>
     </el-form>
 </template>

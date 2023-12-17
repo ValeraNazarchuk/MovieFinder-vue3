@@ -19,7 +19,7 @@ const searchClick = async (formEl) => {
     if (!formEl) return;
     await formEl.validate((valid, fields) => {
         if (valid) {
-            router.push(`/result-movies?search=${ruleForm.movieValue}&page=1`);
+            router.push(`/list-movies?search=${ruleForm.movieValue}&page=1`);
         } else {
             console.log("error submit!", fields);
         }
@@ -41,12 +41,12 @@ const searchClick = async (formEl) => {
             @keyup.enter="searchClick(ruleFormRef)"
         >
             <el-form-item label="Search Movie" prop="movieValue">
-                <FieldInput v-model="ruleForm.movieValue" />
+                <base-input v-model="ruleForm.movieValue" />
             </el-form-item>
             <el-form-item>
-                <PrimaryButton @onClick="searchClick(ruleFormRef)">
+                <base-primary-button @onClick="searchClick(ruleFormRef)">
                     Search
-                </PrimaryButton>
+                </base-primary-button>
             </el-form-item>
         </el-form>
     </div>
