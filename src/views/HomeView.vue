@@ -44,7 +44,10 @@ const searchClick = async (formEl) => {
                 <base-input v-model="ruleForm.movieValue" />
             </el-form-item>
             <el-form-item>
-                <base-primary-button @onClick="searchClick(ruleFormRef)">
+                <base-primary-button
+                    :type="'primary'"
+                    @onClick="searchClick(ruleFormRef)"
+                >
                     Search
                 </base-primary-button>
             </el-form-item>

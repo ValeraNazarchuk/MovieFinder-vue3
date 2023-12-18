@@ -107,7 +107,10 @@ const handleImageUploaded = (url) => {
             />
         </el-form-item>
         <el-form-item>
-            <base-primary-button @click="sendForm(ruleFormRef)">
+            <base-primary-button
+                :type="'primary'"
+                @click="sendForm(ruleFormRef)"
+            >
                 Send
             </base-primary-button>
         </el-form-item>

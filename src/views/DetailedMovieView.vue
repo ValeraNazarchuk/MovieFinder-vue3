@@ -22,7 +22,7 @@ onMounted(() => {
     <div v-else class="movie">
         <div class="movie__inner">
             <div class="movie__content">
-                <base-primary-button @onClick="router.back()">
+                <base-primary-button :type="'primary'" @onClick="router.back()">
                     Back
                 </base-primary-button>
                 <h3 class="movie__content-title">{{ movie.Title }}</h3>
@@ -40,12 +40,20 @@ onMounted(() => {
                 </p>
             </div>
             <div class="movie__images">
-                <img
-                    v-if="movie.Poster !== 'N/A'"
-                    :src="movie.Poster"
-                    alt="poster"
-                />
-                <el-empty v-else :image-size="200" description="No photo" />
+                <div class="movie__images-box">
+                    <img
+                        v-if="movie.Poster !== 'N/A'"
+                        :src="movie.Poster"
+                        alt="poster"
+                    />
+                    <el-empty v-else :image-size="200" description="No photo" />
+                </div>
+                <base-primary-button
+                    :type="'success'"
+                    @onClick="searchClick(ruleFormRef)"
+                >
+                    Add in the favorite movies
+                </base-primary-button>
             </div>
         </div>
     </div>
@@ -77,10 +85,15 @@ onMounted(() => {
     }
 
     &__images {
+        gap: 10px;
+        display: flex;
+        flex-direction: column;
         max-width: 400px;
-        img {
-            margin-left: 20px;
-            border-radius: 30px;
+        margin-left: 20px;
+        &-box {
+            img {
+                border-radius: 30px;
+            }
         }
     }
 }
