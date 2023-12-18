@@ -7,20 +7,25 @@ const routes = [
         component: () => import("@/views/HomeView.vue"),
     },
     {
+        path: "/list-movies",
+        name: "list-movies",
+        component: () => import("@/views/ListMoviesView.vue"),
+    },
+    {
         path: "/detailed-movies/:id",
         name: "detailed-movies",
         component: () => import("@/views/DetailedMovieView.vue"),
         props: true,
     },
     {
+        path: "/favorite-movies",
+        name: "favorite-movies",
+        component: () => import("@/views/FavoriteMoviesView.vue"),
+    },
+    {
         path: "/form",
         name: "form",
         component: () => import("../views/FormView.vue"),
-    },
-    {
-        path: "/list-movies",
-        name: "list-movies",
-        component: () => import("@/views/ListMoviesView.vue"),
     },
 ];
 

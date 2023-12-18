@@ -2,13 +2,23 @@
 import { onMounted, computed } from "vue";
 import { useRouter, useRoute } from "vue-router";
 import { useMoviesStore } from "@/stores/movies";
+import { useFavoriteMoviesStore } from "@/stores/FavoriteMovies";
 
 const router = useRouter();
 const route = useRoute();
 const movieStore = useMoviesStore();
+const favoriteMoviesStore = useFavoriteMoviesStore();
 const movie = computed(() => {
     return movieStore.movie;
 });
+
+const auditId = (movieId) => {
+    const exists = favoriteMoviesStore.movies.some(
+        (el) => el.imdbID === movieId
+    );
+
+    return exists;
+};
 
 onMounted(() => {
     movieStore.getDetailedMovie(route.params.id);
@@ -48,12 +58,22 @@ onMounted(() => {
                     />
                     <el-empty v-else :image-size="200" description="No photo" />
                 </div>
-                <base-primary-button
-                    :type="'success'"
-                    @onClick="searchClick(ruleFormRef)"
-                >
-                    Add in the favorite movies
-                </base-primary-button>
+                <div class="movie__images-buttons">
+                    <base-primary-button
+                        v-show="!auditId(movie.imdbID)"
+                        :type="'success'"
+                        @onClick="favoriteMoviesStore.addMovie(movie)"
+                    >
+                        Add in the favorite movies
+                    </base-primary-button>
+                    <base-primary-button
+                        v-show="auditId(movie.imdbID)"
+                        :type="'danger'"
+                        @onClick="favoriteMoviesStore.deleteMovie(movie.imdbID)"
+                    >
+                        Delete with favorite list
+                    </base-primary-button>
+                </div>
             </div>
         </div>
     </div>
@@ -94,6 +114,11 @@ onMounted(() => {
             img {
                 border-radius: 30px;
             }
+        }
+        &-buttons {
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
     }
 }

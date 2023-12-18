@@ -7,6 +7,10 @@ const props = defineProps({
         type: String,
         required: true,
     },
+    disabled: {
+        type: Boolean,
+        required: false,
+    },
 });
 
 const { type } = toRefs(props);
@@ -17,7 +21,9 @@ const handleClick = () => {
 </script>
 
 <template>
-    <el-button :type="type" @click="handleClick"><slot /></el-button>
+    <el-button :disabled="disabled" :type="type" @click="handleClick"
+        ><slot
+    /></el-button>
 </template>
 
 <style lang="scss" scoped></style>

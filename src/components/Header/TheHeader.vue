@@ -4,6 +4,7 @@ import { ref } from "vue";
 const navList = ref([
     { text: "Home", link: "/" },
     { text: "Form", link: "/form" },
+    { text: "Favorite", link: "/favorite-movies" },
 ]);
 </script>
 
